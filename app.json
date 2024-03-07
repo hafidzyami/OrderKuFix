@@ -7,8 +7,8 @@
     "icon": "./assets/iconOK.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/iconOK.png",
-      "resizeMode": "cover",
+      "image": "./assets/splashOK.png",
+      "resizeMode": "contain",
       "backgroundColor": "#F7E813"
     },
     "assetBundlePatterns": [
