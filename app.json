@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "OrderKu",
+    "scheme": "myapp",
     "slug": "OrderKu",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -31,6 +32,9 @@
       "eas": {
         "projectId": "f6d188e5-9eed-4711-bd3c-7cf36f077e2b"
       }
-    }
+    },
+    "plugins": [
+      "expo-router"
+    ]
   }
 }
