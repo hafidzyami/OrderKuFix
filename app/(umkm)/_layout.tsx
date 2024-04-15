@@ -17,7 +17,7 @@ const RootLayout = () => {
     <Tabs>
       <Tabs.Screen name="index" options={{ title: "Home" }}/>
       <Tabs.Screen name="Chat" />
-      <Tabs.Screen name="Profile" />
+      <Tabs.Screen name="(Profile)/Profile" options={{ title: "Profile" }}/>
     </Tabs>
   );
 };

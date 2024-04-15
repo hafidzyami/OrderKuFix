@@ -1,4 +1,4 @@
-import { Tabs, router } from "expo-router";
+import { Tabs, router, usePathname } from "expo-router";
 import { getAuth } from "firebase/auth";
 import React, { useState } from "react";
 import { Text } from "react-native";
@@ -18,7 +18,8 @@ const RootLayout = () => {
       <Tabs.Screen name="index" options={{ title: "Home" }} />
       <Tabs.Screen name="Favorite" />
       <Tabs.Screen name="Chat" />
-      <Tabs.Screen name="Profile" />
+      <Tabs.Screen name="(Profile)/Profile" options={{ title: "Profile" }}/>
+      <Tabs.Screen name="(Profile)/EditProfile" options={{ href : null}}/>
     </Tabs>
   );
 };
