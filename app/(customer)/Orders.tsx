@@ -1,12 +1,12 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-const FavListScreen = () => {
+const MyOrderScreen = () => {
   return (
     <View>
-      <Text>FavListScreen</Text>
+      <Text>MyOrderScreen</Text>
     </View>
   )
 }
 
-export default FavListScreen
+export default MyOrderScreen

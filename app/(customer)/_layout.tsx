@@ -10,16 +10,21 @@ const RootLayout = () => {
     if (!user) {
       router.replace("../landing");
     }
+    if(getAuth().currentUser!!.displayName!!.startsWith("UMKM")){
+      router.replace("../(umkm)")
+    }
   });
 
   if (isLoading) return <Text style={{ paddingTop: 30 }}>Loading...</Text>;
   return (
     <Tabs>
-      <Tabs.Screen name="index" options={{ title: "Home" }} />
-      <Tabs.Screen name="Favorite" />
+      <Tabs.Screen name="index" options={{ title: "Home", unmountOnBlur: true}} />
+      <Tabs.Screen name="Orders" />
       <Tabs.Screen name="Chat" />
-      <Tabs.Screen name="(Profile)/Profile" options={{ title: "Profile" }}/>
-      <Tabs.Screen name="(Profile)/EditProfile" options={{ href : null}}/>
+      <Tabs.Screen name="(Profile)/Profile" options={{ title: "Profile", unmountOnBlur: true }}/>
+      <Tabs.Screen name="(Profile)/EditProfile" options={{ href : null, unmountOnBlur: true}}/>
+      <Tabs.Screen name="(UMKM)/ListUMKM" options={{ href : null, unmountOnBlur: true}}/>
+      <Tabs.Screen name="(UMKM)/ListMenu" options={{ href : null, unmountOnBlur: true}}/>
     </Tabs>
   );
 };

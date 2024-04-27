@@ -15,7 +15,6 @@ import { router } from "expo-router";
 
 export default function ImagePickerExample() {
   const [image, setImage] = useState<string>("");
-  const [imageURL, setImageURL] = useState<string>("");
 
   const saveUpdates = async () => {
     uploadImage(image).then(() => router.replace("/Profile")).then(() => alert("Update Changes!"))

@@ -13,7 +13,7 @@ const ProfileScreen = () => {
         style={styles.image}
         source={{ uri: getAuth().currentUser?.photoURL || ''}}
       />
-      <ButtonCustom onPress={() => router.replace("../editprofile")} title="Edit Profile" color="#F8E800" opacity={0.5}></ButtonCustom>
+      <ButtonCustom onPress={() => router.replace("../EditProfile")} title="Edit Profile" color="#F8E800" opacity={0.5}></ButtonCustom>
       
     </View>
   );

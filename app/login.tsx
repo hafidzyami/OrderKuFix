@@ -3,15 +3,16 @@ import React, { useState } from "react";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { router } from "expo-router";
 
+
 const LoginScreen = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
   const handleLogin = () => {
     signInWithEmailAndPassword(getAuth(), email, password)
-        .then((user) => {
+        .then((user : any) => {
             if(user)
-                if(email.substring(0,4) == "UMKM") router.replace("/(umkm)/")
+                if(getAuth().currentUser!!.displayName!!.substring(0,4) == "UMKM") router.replace("/(umkm)/")
                 else router.replace("/(customer)/");
         })
         .catch((err) => {

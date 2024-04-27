@@ -7,6 +7,7 @@ import {
 } from "firebase/auth";
 import { router } from "expo-router";
 import Checkbox from "expo-checkbox";
+import { arrayUnion, doc, getFirestore, setDoc } from "firebase/firestore";
 
 const RegisterScreen = () => {
   const [name, setName] = useState<string>("");
@@ -16,18 +17,41 @@ const RegisterScreen = () => {
 
   const handleRegister = async () => {
     try {
-      await createUserWithEmailAndPassword(getAuth(), email, password).catch(
-        (err) => alert(err?.message)
-      );
+      await createUserWithEmailAndPassword(getAuth(), email, password)
       await updateProfile(getAuth().currentUser!!, {
         displayName: name,
         photoURL: `https://ui-avatars.com/api/?name=${name}&background=F8E800&color=fff&length=1`,
       })
+
+      if(name.startsWith("UMKM")){
+        await setDoc(doc(getFirestore(), "umkm", getAuth().currentUser!!.uid), {
+          id : getAuth().currentUser!!.uid,
+          nama : getAuth().currentUser!!.displayName,
+          telepon : getAuth().currentUser!!.phoneNumber,
+          alamat : "",
+          deskripsi: "",
+          photoURL : getAuth().currentUser!!.photoURL
+        })
+        await setDoc(doc(getFirestore(), "menu", getAuth().currentUser!!.uid), {
+          deskripsi : "",
+        })
         .then(() => {
           alert("Berhasil daftar");
-          router.replace("/login");
+          router.replace("/(umkm)/");
         })
-        .catch((err) => alert(err?.message));
+      }
+      else{
+        await setDoc(doc(getFirestore(), "customer", getAuth().currentUser!!.uid), {
+          id : getAuth().currentUser!!.uid,
+          nama : getAuth().currentUser!!.displayName,
+          telepon : getAuth().currentUser!!.phoneNumber,
+          favUMKM : arrayUnion(null)
+        })
+        .then(() => {
+          alert("Berhasil daftar");
+          router.replace("/(customer)/");
+        })
+      }
     } catch (err) {
       alert(err);
     }
@@ -36,16 +60,16 @@ const RegisterScreen = () => {
   const handleCheckBox = (newValue: boolean) => {
     setChecked(newValue);
     if (newValue) {
-      setEmail("UMKM" + email);
+      setName("UMKM " + name);
     } else {
-      setEmail(email.replace(/^UMKM/, ""));
+      setName("");
     }
   };
 
   return (
     <View>
       <Text>Register Page</Text>
-      <TextInput placeholder="Nama" onChangeText={(text) => setName(text)} />
+      <TextInput placeholder="Nama" onChangeText={(text) => setName(text)} value={name}/>
       <TextInput
         placeholder="Email"
         keyboardType="email-address"

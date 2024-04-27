@@ -1,8 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Button, Text, View } from 'react-native';
-import Entypo from '@expo/vector-icons/Entypo';
-import * as SplashScreen from 'expo-splash-screen';
-import * as Font from 'expo-font';
 import { router } from 'expo-router';
 
 // Keep the splash screen visible while we fetch resources
