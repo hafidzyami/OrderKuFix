@@ -38,7 +38,7 @@ const RootLayout = () =>{
         <Stack>
             <Stack.Screen name="(customer)" />
             <Stack.Screen name="(umkm)" />
-            <Stack.Screen name="landing"/>
+            <Stack.Screen name="landing" options={{headerShown: false}}/>
             <Stack.Screen name="login"/>
             <Stack.Screen name="register"/>
         </Stack>
