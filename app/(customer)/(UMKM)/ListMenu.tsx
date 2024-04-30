@@ -144,7 +144,7 @@ const UMKMenu = () => {
       <Image source={{ uri: item.imageURL }} style={styles.image} />
       <Text>{item.foodName}</Text>
       <Text>Rp {formatRupiah(item.price)}</Text>
-      {cart.length === 0 ||
+      {!item.isAvailable ? <Text>Out of Stock</Text> : (cart.length === 0 ||
       !cart.find((menuItem) => menuItem.has(item.idMenu)) ? (
         <Button title="Add" onPress={() => handleFirstCart(item)}></Button>
       ) : (
@@ -157,7 +157,7 @@ const UMKMenu = () => {
           </Text>
           <Button title="+" onPress={() => handleTambahMenu(item)} />
         </View>
-      )}
+      )) }
     </View>
   );
   return (
