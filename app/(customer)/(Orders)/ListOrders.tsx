@@ -7,12 +7,14 @@ import {
   RefreshControl,
   FlatList,
   Image,
+  TouchableOpacity,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import formatRupiah from "@/functions/formatRupiah";
 import formatImageURL from "@/functions/formatImageURL";
+import { router } from "expo-router";
 
 const MyOrderScreen = () => {
   const [orders, setOrders] = useState<any>();
@@ -50,11 +52,13 @@ const MyOrderScreen = () => {
     fetchData();
   }, []);
 
-  const calculateQuantity = (cart : any) => {
+  const calculateQuantity = (cart: any) => {
     let totalQuantity = 0;
-    cart.map((item : any) => {totalQuantity += item.quantity})
+    cart.map((item: any) => {
+      totalQuantity += item.quantity;
+    });
     return totalQuantity;
-  }
+  };
 
   const onRefresh = () => {
     setRefreshing(true);
@@ -63,41 +67,65 @@ const MyOrderScreen = () => {
   };
 
   const renderOrderItem = (item: any) => {
-    console.log("item :", item.item)
     return (
-      <View style={{ marginBottom : 20 }}>
-        <View style={{ display:"flex", flexDirection: "row", justifyContent: "space-between" }}>
-          <Text>{item.item.timeStampOrder}</Text>
-          <Text
-            style={{ color: item.item.timeStampFinish === "" ? "orange" : "green" }}
-          >
-            {item.item.timeStampFinish === "" ? "Ongoing" : "Complete"}
-          </Text>
-        </View>
-        <View style={{ flexDirection: "row" }}>
-          <Image
-            style={{height : 50, width : 50}}
-            source={{
-              uri: formatImageURL(item.item.photoUMKM),
+      <TouchableOpacity
+        onPress={() =>
+          router.push({
+            pathname: "/DetailOrder",
+            params: { order: JSON.stringify(item) },
+          })
+        }
+      >
+        <View style={{ marginBottom: 20 }}>
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
             }}
-          ></Image>
-          <View>
-            <Text>{item.item.namaUMKM}</Text>
-            <View
-              style={{flexDirection: "row", justifyContent: "space-between" }}
+          >
+            <Text>{item.item.timeStampOrder}</Text>
+            <Text
+              style={{
+                color: item.item.timeStampFinish === "" ? "orange" : "green",
+              }}
             >
-              <Text>Total</Text>
-              <Text>Quantity</Text>
-            </View>
-            <View
-              style={{ flexDirection: "row", justifyContent: "space-between" }}
-            >
-              <Text style={{ marginRight : 200 }}>Rp {formatRupiah(item.item.totalPrice)}</Text>
-              <Text>{calculateQuantity(item.item.cart)}</Text>
+              {item.item.timeStampFinish === "" ? "Ongoing" : "Complete"}
+            </Text>
+          </View>
+          <View style={{ flexDirection: "row" }}>
+            <Image
+              style={{ height: 50, width: 50 }}
+              source={{
+                uri: formatImageURL(item.item.photoUMKM),
+              }}
+            ></Image>
+            <View>
+              <Text>{item.item.namaUMKM}</Text>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Text>Total</Text>
+                <Text>Quantity</Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Text style={{ marginRight: 200 }}>
+                  Rp {formatRupiah(item.item.totalPrice)}
+                </Text>
+                <Text>{calculateQuantity(item.item.cart)}</Text>
+              </View>
             </View>
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
   return (

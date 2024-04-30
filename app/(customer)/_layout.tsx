@@ -20,6 +20,7 @@ const RootLayout = () => {
     <Tabs>
       <Tabs.Screen name="index" options={{ title: "Home", unmountOnBlur: true}} />
       <Tabs.Screen name="(Orders)/ListOrders" options={{ title: "Orders", unmountOnBlur: true}} />
+      <Tabs.Screen name="(Orders)/DetailOrder" options={{href : null, unmountOnBlur: true}} />
       <Tabs.Screen name="Chat" />
       <Tabs.Screen name="(Profile)/Profile" options={{ title: "Profile", unmountOnBlur: true }}/>
       <Tabs.Screen name="(Profile)/EditProfile" options={{ href : null, unmountOnBlur: true}}/>
