@@ -58,8 +58,7 @@ export default function EditProfileUMKM() {
           })
         );
     } catch (error) {
-      console.log(error);
-      alert("Upload Error");
+      alert(error);
     }
   };
 

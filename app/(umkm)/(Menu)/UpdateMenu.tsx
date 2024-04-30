@@ -42,7 +42,6 @@ const EditAMenu = () => {
     isAvailable: params.isAvailable === "true" ? true : false,
     imageURL: formatImageURL(params.imageURL),
   };
-  console.log("oldMenu : ", oldMenu);
   const [image, setImage] = useState<any>(
     typeof params.imageURL!! === "string" ? formatImageURL(params.imageURL) : ""
   );
@@ -122,8 +121,7 @@ const EditAMenu = () => {
         }
       );
     } catch (error) {
-      console.log(error);
-      alert("Upload Error");
+      alert(error);
     } finally {
       setLoadingUpload(false);
     }

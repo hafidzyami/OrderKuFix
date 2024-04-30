@@ -15,7 +15,8 @@ function formatImageURL(url: any): string {
 
   // Concatenate the modified substring with the base URL
   const modifiedUrl = url.substring(0, startIndex) + replacedSubstring;
-  return modifiedUrl;
+  const fixModifiedURL = modifiedUrl.replace(/ /g, "%20")
+  return fixModifiedURL;
 }
 
 export default formatImageURL;

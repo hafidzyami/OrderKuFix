@@ -6,9 +6,10 @@ interface ButtonProps {
   title: string;
   color: ColorValue;
   opacity?: number;
+  borderColor? : any;
 }
 
-export function ButtonCustom({ onPress, title, color, opacity }: ButtonProps) {
+export function ButtonCustom({ onPress, title, color, opacity, borderColor }: ButtonProps) {
   const styles = StyleSheet.create({
     button: {
       alignItems: 'center',
@@ -18,7 +19,8 @@ export function ButtonCustom({ onPress, title, color, opacity }: ButtonProps) {
       borderRadius: 4,
       elevation: 3,
       backgroundColor: color,
-      opacity: opacity ?? 1, // default opacity is 1 if not provided
+      opacity: opacity ?? 1,
+      borderColor : borderColor // default opacity is 1 if not provided
     },
     text: {
       fontSize: 16,

@@ -22,7 +22,7 @@ const RootLayout = () => {
       <Tabs.Screen name="(Menu)/EditMenu" options={{ href : null, unmountOnBlur: true}}/>
       <Tabs.Screen name="TotalPendapatan" options={{ href : null}}/>
       <Tabs.Screen name="(Profile)/EditProfile" options={{ href : null}}/>
-      <Tabs.Screen name="(Menu)/EditMenu" options={{ href : null, unmountOnBlur: true}}/>
+      <Tabs.Screen name="(Menu)/UpdateMenu" options={{ href : null, unmountOnBlur: true}}/>
     </Tabs>
   ); 
 };
