@@ -1,4 +1,4 @@
-import { View, Text, TextInput, Button } from "react-native";
+import { View, Text, TextInput, Button, Pressable } from "react-native";
 import React, { useState } from "react";
 import {
   createUserWithEmailAndPassword,
@@ -17,40 +17,40 @@ const RegisterScreen = () => {
 
   const handleRegister = async () => {
     try {
-      await createUserWithEmailAndPassword(getAuth(), email, password)
+      await createUserWithEmailAndPassword(getAuth(), email, password);
       await updateProfile(getAuth().currentUser!!, {
         displayName: name,
         photoURL: `https://ui-avatars.com/api/?name=${name}&background=F8E800&color=fff&length=1`,
-      })
+      });
 
-      if(name.startsWith("UMKM")){
+      if (name.startsWith("UMKM")) {
         await setDoc(doc(getFirestore(), "umkm", getAuth().currentUser!!.uid), {
-          id : getAuth().currentUser!!.uid,
-          nama : getAuth().currentUser!!.displayName,
-          telepon : getAuth().currentUser!!.phoneNumber,
-          alamat : "",
+          id: getAuth().currentUser!!.uid,
+          nama: getAuth().currentUser!!.displayName,
+          telepon: getAuth().currentUser!!.phoneNumber,
+          alamat: "",
           deskripsi: "",
-          photoURL : getAuth().currentUser!!.photoURL
-        })
+          photoURL: getAuth().currentUser!!.photoURL,
+        });
         await setDoc(doc(getFirestore(), "menu", getAuth().currentUser!!.uid), {
-          deskripsi : "",
-        })
-        .then(() => {
+          deskripsi: "",
+        }).then(() => {
           alert("Berhasil daftar");
           router.replace("/(umkm)/");
-        })
-      }
-      else{
-        await setDoc(doc(getFirestore(), "customer", getAuth().currentUser!!.uid), {
-          id : getAuth().currentUser!!.uid,
-          nama : getAuth().currentUser!!.displayName,
-          telepon : getAuth().currentUser!!.phoneNumber,
-          favUMKM : arrayUnion(null)
-        })
-        .then(() => {
+        });
+      } else {
+        await setDoc(
+          doc(getFirestore(), "customer", getAuth().currentUser!!.uid),
+          {
+            id: getAuth().currentUser!!.uid,
+            nama: getAuth().currentUser!!.displayName,
+            telepon: getAuth().currentUser!!.phoneNumber,
+            favUMKM: arrayUnion(null),
+          }
+        ).then(() => {
           alert("Berhasil daftar");
           router.replace("/(customer)/");
-        })
+        });
       }
     } catch (err) {
       alert(err);
@@ -67,23 +67,48 @@ const RegisterScreen = () => {
   };
 
   return (
-    <View>
-      <Text>Register Page</Text>
-      <TextInput placeholder="Nama" onChangeText={(text) => setName(text)} value={name}/>
-      <TextInput
-        placeholder="Email"
-        keyboardType="email-address"
-        onChangeText={(text) => setEmail(text)}
-        value={email}
-      />
-      <TextInput
-        placeholder="Password"
-        secureTextEntry
-        onChangeText={(text) => setPassword(text)}
-      />
-      <Button title={"Register"} onPress={handleRegister} />
-      <Text>Apakah UMKM?</Text>
-      <Checkbox value={isChecked} onValueChange={handleCheckBox} />
+    <View className="flex flex-col gap-y-16 ">
+      <View className="flex flex-col gap-y-6">
+        <View>
+          <Text className="text-base">Fullname</Text>
+          <TextInput
+            placeholder="name"
+            onChangeText={(text) => setName(text)}
+            value={name}
+            className="text-base py-2 border-b-2 border-gray-400"
+          />
+        </View>
+        <View>
+          <Text className="text-base">Email Address</Text>
+          <TextInput
+            placeholder="username@gmail.com"
+            keyboardType="email-address"
+            onChangeText={(text) => setEmail(text)}
+            value={email}
+            className="text-base py-2 border-b-2 border-gray-400"
+          />
+        </View>
+        <View>
+          <Text className="text-base">Password</Text>
+          <TextInput
+            placeholder="********"
+            secureTextEntry
+            onChangeText={(text) => setPassword(text)}
+            className="text-base py-2 border-b-2 border-gray-400"
+          />
+        </View>
+        <View className="flex flex-row gap-x-4 items-center">
+          <Text className="text-base font-bold">UMKM?</Text>
+          <Checkbox value={isChecked} onValueChange={handleCheckBox} />
+        </View>
+      </View>
+
+      <Pressable
+        onPress={handleRegister}
+        className="bg-mainYellow py-6 flex items-center rounded-xl mt-12"
+      >
+        <Text className="text-lg text-textButton font-bold">Sign Up</Text>
+      </Pressable>
     </View>
   );
 };

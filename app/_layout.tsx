@@ -39,6 +39,7 @@ const RootLayout = () =>{
             <Stack.Screen name="(customer)" />
             <Stack.Screen name="(umkm)" />
             <Stack.Screen name="landing" options={{headerShown: false}}/>
+            <Stack.Screen name="afterLanding" options={{headerShown: false}}/>
             <Stack.Screen name="login"/>
             <Stack.Screen name="register"/>
         </Stack>

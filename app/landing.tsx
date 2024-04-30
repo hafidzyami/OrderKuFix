@@ -13,14 +13,9 @@ export default function LandingScreen() {
 
       <Pressable
         onPress={() => {
-          router.replace("/login");
+          router.push("/afterLanding");
         }}
         className="py-6 px-32 rounded-xl mt-64 bg-buttonWhite"
-        // style={({ pressed }) => [
-        //   {
-        //     backgroundColor: pressed ? "black" : "white",
-        //   }
-        // ]}
       >
         <Text className="text-lg text-textButton font-bold">Get Started</Text>
       </Pressable>
