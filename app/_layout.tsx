@@ -36,7 +36,7 @@ export const FIRESTORE_DB = getFirestore(FIREBASE_APP);
 const RootLayout = () =>{
     return(
         <Stack>
-            <Stack.Screen name="(customer)" />
+            <Stack.Screen name="(customer)" options={{headerShown: false}}/>
             <Stack.Screen name="(umkm)" />
             <Stack.Screen name="landing" options={{headerShown: false}}/>
             <Stack.Screen name="afterLanding" options={{headerShown: false}}/>

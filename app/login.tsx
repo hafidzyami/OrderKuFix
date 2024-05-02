@@ -21,7 +21,7 @@ const LoginScreen = () => {
   };
 
   return (
-    <View className="flex flex-col gap-y-52">
+    <View className="flex flex-col gap-y-44">
       {/* <Button title={"Register"} onPress={() => router.push("/register")}/> */}
       <View className="flex flex-col gap-y-4">
         <View>
@@ -47,7 +47,7 @@ const LoginScreen = () => {
 
       <Pressable
         onPress={handleLogin}
-        className="bg-mainYellow py-6 flex items-center rounded-xl"
+        className="bg-mainYellow py-4 flex items-center rounded-xl"
       >
         <Text className="text-lg text-textButton font-bold">Sign In</Text>
       </Pressable>

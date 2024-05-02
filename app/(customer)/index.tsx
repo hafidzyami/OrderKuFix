@@ -22,12 +22,14 @@ import {
 } from "firebase/firestore";
 import { router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { LinearGradient } from 'expo-linear-gradient';
 
 const CustomerHome = () => {
   const [UMKM, setUMKM] = useState<any>();
   const [loading, setLoading] = useState<boolean>(true);
   const [favUMKM, setFavUMKM] = useState<any>();
   const [refreshing, setRefreshing] = useState<boolean>(false);
+  console.log("customer");
 
   const fetchUMKM = async () => {
     try {
@@ -66,7 +68,9 @@ const CustomerHome = () => {
 
   const renderUMKMCard = ({ item }: any) => (
     <TouchableOpacity
-      onPress={() => router.push({ pathname: "../(UMKM)/ListMenu", params: item })}
+      onPress={() =>
+        router.push({ pathname: "../(UMKM)/ListMenu", params: item })
+      }
     >
       <View style={styles.card}>
         <Image style={styles.image} source={{ uri: item.photoURL || "" }} />
@@ -75,7 +79,16 @@ const CustomerHome = () => {
     </TouchableOpacity>
   );
   return (
-    <View style={styles.container}>
+    <View>
+      <LinearGradient colors={['#FFF676','#F8E800']} className="bg-yellow-200 rounded-b-xl relative h-64">
+        <Text className="z-10 mt-36 mx-6 absolute font-extrabold text-4xl">
+          Delicious{"\n"}food for you
+        </Text>
+        <Image
+          source={require("./assets-customer/food-background.png")}
+          className="w-full h-64 rounded-b-xl z-0"
+        ></Image>
+      </LinearGradient>
       {loading ? (
         <ActivityIndicator size="large" color="#F8E800" />
       ) : (
@@ -141,10 +154,10 @@ const CustomerHome = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-  },
+  // container: {
+  //   flex: 1,
+  //   alignItems: "center",
+  // },
   card: {
     margin: 10,
     alignItems: "center",

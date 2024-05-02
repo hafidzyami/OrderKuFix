@@ -14,7 +14,6 @@ const AfterLandingScreen = () => {
         style={{ width: 150, height: 150, marginTop: 96 }}
       ></Image>
 
-      {/* <Text className="mt-8 font-bold text-xl">After Landing Screen</Text> */}
       <View className="flex flex-row mt-16 gap-x-4">
         <Pressable
           onPress={() => {
@@ -46,7 +45,7 @@ const AfterLandingScreen = () => {
         </Pressable>
       </View>
 
-      <View className="self-stretch mt-4 mx-10 h-1/2">
+      <View className="self-stretch mt-4 mx-8">
         {signInPressed ? <LoginScreen/>:<RegisterScreen/>}
       </View>
 

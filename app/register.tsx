@@ -67,8 +67,8 @@ const RegisterScreen = () => {
   };
 
   return (
-    <View className="flex flex-col gap-y-16 ">
-      <View className="flex flex-col gap-y-6">
+    <View className="flex flex-col gap-y-20 ">
+      <View className="flex flex-col gap-y-4">
         <View>
           <Text className="text-base">Fullname</Text>
           <TextInput
@@ -105,7 +105,7 @@ const RegisterScreen = () => {
 
       <Pressable
         onPress={handleRegister}
-        className="bg-mainYellow py-6 flex items-center rounded-xl mt-12"
+        className="bg-mainYellow py-4 flex items-center rounded-xl mt-12"
       >
         <Text className="text-lg text-textButton font-bold">Sign Up</Text>
       </Pressable>
