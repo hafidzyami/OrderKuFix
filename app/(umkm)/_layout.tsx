@@ -3,6 +3,8 @@ import { getAuth } from "firebase/auth";
 import React, { useState } from "react";
 import { Text } from "react-native";
 
+import 'react-native-reanimated'
+
 const RootLayout = () => {
   const [isLoading, setIsLoading] = useState(true);
   getAuth().onAuthStateChanged((user) => {
@@ -16,6 +18,7 @@ const RootLayout = () => {
   return (
     <Tabs>
       <Tabs.Screen name="index" options={{ title: "Home", unmountOnBlur: true}}/>
+      <Tabs.Screen name="(Orders)/ListOrders" options={{ title : "Orders", unmountOnBlur: true}}/>
       <Tabs.Screen name="Chat" options={{unmountOnBlur: true}}/>
       <Tabs.Screen name="(Profile)/Profile" options={{ title: "Profile", unmountOnBlur: true}}/>
       <Tabs.Screen name="(Menu)/AddMenu" options={{ href : null, unmountOnBlur: true}}/>
@@ -23,6 +26,7 @@ const RootLayout = () => {
       <Tabs.Screen name="TotalPendapatan" options={{ href : null}}/>
       <Tabs.Screen name="(Profile)/EditProfile" options={{ href : null}}/>
       <Tabs.Screen name="(Menu)/UpdateMenu" options={{ href : null, unmountOnBlur: true}}/>
+      <Tabs.Screen name="(Orders)/DetailOrder" options={{ href : null, unmountOnBlur: true}}/>
     </Tabs>
   ); 
 };

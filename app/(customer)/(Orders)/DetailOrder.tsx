@@ -22,6 +22,7 @@ const DetailOrder = () => {
   const timeStampFinish = orderItem.timeStampFinish
   const sumOfPrice = orderItem.totalPrice
 
+
   const renderOrderItem = (item: any) => {
     return (
       <View style={{ marginBottom: 50 }}>

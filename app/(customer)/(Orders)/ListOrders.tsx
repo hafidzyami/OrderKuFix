@@ -15,6 +15,7 @@ import { getAuth } from "firebase/auth";
 import formatRupiah from "@/functions/formatRupiah";
 import formatImageURL from "@/functions/formatImageURL";
 import { router } from "expo-router";
+import formatProfileURL from "@/functions/formatProfileURL";
 
 const MyOrderScreen = () => {
   const [orders, setOrders] = useState<any>();
@@ -97,7 +98,7 @@ const MyOrderScreen = () => {
             <Image
               style={{ height: 50, width: 50 }}
               source={{
-                uri: formatImageURL(item.item.photoUMKM),
+                uri: formatProfileURL(item.item.photoUMKM),
               }}
             ></Image>
             <View>
@@ -143,7 +144,7 @@ const MyOrderScreen = () => {
               key={"#"}
               data={orders}
               renderItem={renderOrderItem}
-              keyExtractor={(item) => item.idOrder}
+              keyExtractor={(item) => item.timeStampOrder + item.totalPrice }
               nestedScrollEnabled={true}
               scrollEnabled={false}
             />

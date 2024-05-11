@@ -29,7 +29,6 @@ const CustomerHome = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [favUMKM, setFavUMKM] = useState<any>();
   const [refreshing, setRefreshing] = useState<boolean>(false);
-  console.log("customer");
 
   const fetchUMKM = async () => {
     try {
@@ -103,7 +102,7 @@ const CustomerHome = () => {
               onPress={() =>
                 router.replace({
                   pathname: "/(UMKM)/ListUMKM",
-                  params: { isFavorite: false },
+                  params: { isFavorite: "false" },
                 })
               }
             ></Button>
@@ -124,7 +123,7 @@ const CustomerHome = () => {
               onPress={() =>
                 router.replace({
                   pathname: "/(UMKM)/ListUMKM",
-                  params: { isFavorite: true },
+                  params: { isFavorite: "true" },
                 })
               }
             ></Button>

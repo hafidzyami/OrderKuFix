@@ -31,6 +31,7 @@ const Checkout = () => {
   );
   const [loadingImage, setLoadingImage] = useState<boolean>(true);
   const [loadingOrder, setLoadingOrder] = useState<boolean>(false);
+  const [now, setNow] = useState<any>(getCurrentTimestamp())
 
   const handleOrder = async (item: any) => {
     try {
@@ -49,7 +50,7 @@ const Checkout = () => {
             photoUMKM : params.photoUMKM,
             cart: item,
             totalPrice: calculatePrice(),
-            timeStampOrder: getCurrentTimestamp(),
+            timeStampOrder: now,
             timeStampFinish: "",
           }),
         });
@@ -61,7 +62,7 @@ const Checkout = () => {
             photoUMKM : params.photoUMKM,
             cart: item,
             totalPrice: calculatePrice(),
-            timeStampOrder: getCurrentTimestamp(),
+            timeStampOrder: now,
             timeStampFinish: "",
           }),
         });
@@ -70,7 +71,7 @@ const Checkout = () => {
       const orderUMKMRef = doc(
         getFirestore(),
         "orderumkm",
-        getAuth().currentUser!!.uid
+        typeof params.idUMKM === "string" ? params.idUMKM : ""
       );
       const orderUMKMSnapshot = await getDoc(orderUMKMRef);
       if (orderUMKMSnapshot.exists()) {
@@ -81,7 +82,7 @@ const Checkout = () => {
             photoCustomer: getAuth().currentUser!!.photoURL,
             cart: item,
             totalPrice: calculatePrice(),
-            timeStampOrder: getCurrentTimestamp(),
+            timeStampOrder: now,
             timeStampFinish: "",
           }),
         });
@@ -93,7 +94,7 @@ const Checkout = () => {
             photoCustomer: getAuth().currentUser!!.photoURL,
             cart: item,
             totalPrice: calculatePrice(),
-            timeStampOrder: getCurrentTimestamp(),
+            timeStampOrder: now,
             timeStampFinish: "",
           }),
         });

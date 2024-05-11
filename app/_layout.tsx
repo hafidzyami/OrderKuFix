@@ -1,9 +1,10 @@
 import { Stack } from "expo-router"
 import { initializeApp } from "firebase/app";
-import {initializeAuth, getReactNativePersistence, getAuth } from "firebase/auth";
+import {initializeAuth, getReactNativePersistence} from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import ReactNativeAsyncStorage from "@react-native-async-storage/async-storage";
-import { useState } from "react";
+
+import 'react-native-reanimated'
 
 const API_KEY = process.env.EXPO_PUBLIC_API_KEY;
 const AUTH_DOMAIN = process.env.EXPO_PUBLIC_AUTH_DOMAIN;

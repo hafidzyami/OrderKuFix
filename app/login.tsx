@@ -11,7 +11,7 @@ const LoginScreen = () => {
     signInWithEmailAndPassword(getAuth(), email, password)
       .then((user: any) => {
         if (user)
-          if (getAuth().currentUser!!.displayName!!.substring(0, 4) == "UMKM")
+          if (user._tokenResponse.displayName.substring(0, 4) == "UMKM")
             router.replace("/(umkm)/");
           else router.replace("/(customer)/");
       })
