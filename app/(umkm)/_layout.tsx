@@ -1,18 +1,20 @@
 import { Tabs, router } from "expo-router";
 import { getAuth } from "firebase/auth";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Text } from "react-native";
 
 import 'react-native-reanimated'
 
 const RootLayout = () => {
   const [isLoading, setIsLoading] = useState(true);
-  getAuth().onAuthStateChanged((user) => {
+  useEffect(() => {
+    getAuth().onAuthStateChanged((user) => {
+      if (!user) {
+        router.replace("../landing");
+      }
+    });
     setIsLoading(false);
-    if (!user) {
-      router.replace("../landing");
-    }
-  });
+  }, [])
 
   if (isLoading) return <Text style={{ paddingTop: 30 }}>Loading...</Text>;
   return (
@@ -27,6 +29,7 @@ const RootLayout = () => {
       <Tabs.Screen name="(Profile)/EditProfile" options={{ href : null}}/>
       <Tabs.Screen name="(Menu)/UpdateMenu" options={{ href : null, unmountOnBlur: true}}/>
       <Tabs.Screen name="(Orders)/DetailOrder" options={{ href : null, unmountOnBlur: true}}/>
+      <Tabs.Screen name="ChatRoom" options={{ href : null, unmountOnBlur: true}}/>
     </Tabs>
   ); 
 };

@@ -46,6 +46,7 @@ const RegisterScreen = () => {
             nama: getAuth().currentUser!!.displayName,
             telepon: getAuth().currentUser!!.phoneNumber,
             favUMKM: arrayUnion(null),
+            photoURL: getAuth().currentUser!!.photoURL
           }
         ).then(() => {
           alert("Berhasil daftar");

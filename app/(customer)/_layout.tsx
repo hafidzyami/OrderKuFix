@@ -13,18 +13,16 @@ const RootLayout = () => {
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     getAuth().onAuthStateChanged((user) => {
-      setIsLoading(false);
       if (!user) {
         router.replace("../landing");
-        setIsLoading(false);
       }
       else{
         if(user?.displayName?.startsWith("UMKM")){
           router.replace("../(umkm)/")
-          setIsLoading(false);
         }
       }
     });
+    setIsLoading(false);
   }, []);
 
   if (isLoading) return <Text className="pt-32">Loading...</Text>;
@@ -93,6 +91,10 @@ const RootLayout = () => {
         <Tabs.Screen name="(UMKM)/ListMenu" options={{ href: null }} />
         <Tabs.Screen
           name="(UMKM)/Checkout"
+          options={{ href: null, unmountOnBlur: true }}
+        />
+        <Tabs.Screen
+          name="ChatRoom"
           options={{ href: null, unmountOnBlur: true }}
         />
       </Tabs>
