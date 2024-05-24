@@ -1,5 +1,12 @@
-import { View, Text, TextInput, Button, Pressable } from "react-native";
-import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  Pressable,
+  Animated,
+} from "react-native";
+import React, { useRef, useState } from "react";
 import {
   createUserWithEmailAndPassword,
   getAuth,
@@ -8,13 +15,36 @@ import {
 import { router } from "expo-router";
 import Checkbox from "expo-checkbox";
 import { arrayUnion, doc, getFirestore, setDoc } from "firebase/firestore";
+import CustomModal from "../components/CustomModal";
 
 const RegisterScreen = () => {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [isChecked, setChecked] = useState(false);
+  const [isModalVisible, setModalVisible] = useState<boolean>(false);
+  const [modalMessage, setModalMessage] = useState<string>("");
+  const animated = useRef(new Animated.Value(1)).current;
 
+  const fadeIn = () => {
+    Animated.timing(animated, {
+      toValue: 0.95,
+      duration: 100,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const fadeOut = () => {
+    Animated.timing(animated, {
+      toValue: 1,
+      duration: 200,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
   const handleRegister = async () => {
     try {
       await createUserWithEmailAndPassword(getAuth(), email, password);
@@ -46,7 +76,7 @@ const RegisterScreen = () => {
             nama: getAuth().currentUser!!.displayName,
             telepon: getAuth().currentUser!!.phoneNumber,
             favUMKM: arrayUnion(null),
-            photoURL: getAuth().currentUser!!.photoURL
+            photoURL: getAuth().currentUser!!.photoURL,
           }
         ).then(() => {
           alert("Berhasil daftar");
@@ -54,7 +84,10 @@ const RegisterScreen = () => {
         });
       }
     } catch (err) {
-      alert(err);
+      if (err instanceof Error) {
+        setModalMessage(err.message);
+        toggleModal();
+      }
     }
   };
 
@@ -68,8 +101,8 @@ const RegisterScreen = () => {
   };
 
   return (
-    <View className="flex flex-col gap-y-20 ">
-      <View className="flex flex-col gap-y-4">
+    <View className="flex flex-col gap-y-11 ">
+      <View className="flex flex-col gap-y-4 px-2">
         <View>
           <Text className="text-base">Fullname</Text>
           <TextInput
@@ -104,12 +137,22 @@ const RegisterScreen = () => {
         </View>
       </View>
 
-      <Pressable
-        onPress={handleRegister}
-        className="bg-mainYellow py-4 flex items-center rounded-xl mt-12"
-      >
-        <Text className="text-lg text-textButton font-bold">Sign Up</Text>
-      </Pressable>
+      <Animated.View style={{ transform: [{ scale: animated }] }}>
+        <Pressable
+          onPressIn={fadeIn}
+          onPressOut={fadeOut}
+          onPress={handleRegister}
+          className="bg-mainYellow py-4 flex items-center rounded-xl shadow-sm shadow-black mb-4"
+        >
+          <Text className="text-lg text-textButton font-bold ">Sign Up</Text>
+        </Pressable>
+      </Animated.View>
+
+      <CustomModal
+        isVisible={isModalVisible}
+        message={modalMessage}
+        onClose={toggleModal}
+      />
     </View>
   );
 };

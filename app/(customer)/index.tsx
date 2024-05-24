@@ -22,7 +22,8 @@ import {
 } from "firebase/firestore";
 import { router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { LinearGradient } from 'expo-linear-gradient';
+import { LinearGradient } from "expo-linear-gradient";
+import { AntDesign } from "@expo/vector-icons";
 
 const CustomerHome = () => {
   const [UMKM, setUMKM] = useState<any>();
@@ -70,16 +71,24 @@ const CustomerHome = () => {
       onPress={() =>
         router.push({ pathname: "../(UMKM)/ListMenu", params: item })
       }
+      className=""
     >
-      <View style={styles.card}>
-        <Image style={styles.image} source={{ uri: item.photoURL || "" }} />
-        <Text style={styles.name}>{item.nama}</Text>
+      <View className="bg-white ml-6 my-2 rounded-lg w-36 shadow-sm shadow-black">
+        <Image
+          // style={styles.image}
+          className="w-full rounded-t-lg h-32"
+          source={{ uri: item.photoURL || "" }}
+        />
+        <Text className="my-2 mx-2 font-bold h-10">{item.nama}</Text>
       </View>
     </TouchableOpacity>
   );
   return (
-    <View>
-      <LinearGradient colors={['#FFF676','#F8E800']} className="bg-yellow-200 rounded-b-xl relative h-64">
+    <View className="bg-white h-full">
+      <LinearGradient
+        colors={["#fffab3","#FFF676", "#F8E800"]}
+        className="bg-yellow-200 rounded-b-xl relative h-64 shadow-sm shadow-black"
+      >
         <Text className="z-10 mt-36 mx-6 absolute font-extrabold text-4xl">
           Delicious{"\n"}food for you
         </Text>
@@ -97,17 +106,20 @@ const CustomerHome = () => {
               <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             }
           >
-            <Button
-              title="Near Me"
+            <Pressable
               onPress={() =>
                 router.replace({
                   pathname: "/(UMKM)/ListUMKM",
                   params: { isFavorite: "false" },
                 })
               }
-            ></Button>
-            <View style={{ height: 150 }}>
-              <ScrollView horizontal={true}>
+              className="w-[30%] mx-6 flex flex-row justify-between items-center pr-2 rounded-lg"
+            >
+              <Text className="text-lg text-textButton font-bold">Near Me</Text>
+              <AntDesign name="right" size={18} color="black" />
+            </Pressable>
+            <View style={{ height: 200 }}>
+              <ScrollView horizontal={true} >
                 <FlatList
                   data={UMKM}
                   renderItem={renderUMKMCard}
@@ -115,18 +127,23 @@ const CustomerHome = () => {
                   horizontal={true}
                   nestedScrollEnabled={true}
                   scrollEnabled={false}
+                  className="mr-6"
                 />
               </ScrollView>
             </View>
-            <Button
-              title="Favorite"
+            <Pressable
               onPress={() =>
                 router.replace({
                   pathname: "/(UMKM)/ListUMKM",
                   params: { isFavorite: "true" },
                 })
               }
-            ></Button>
+              className="w-[30%] mx-6 flex flex-row justify-between items-center pr-2 rounded-lg"
+            >
+              <Text className="text-lg text-textButton font-bold">Favorite</Text>
+              <AntDesign name="right" size={18} color="black" />
+            </Pressable>
+            
             <View style={{ height: 150 }}>
               <ScrollView horizontal={true}>
                 <FlatList
@@ -153,25 +170,8 @@ const CustomerHome = () => {
 };
 
 const styles = StyleSheet.create({
-  // container: {
-  //   flex: 1,
-  //   alignItems: "center",
-  // },
-  card: {
-    margin: 10,
-    alignItems: "center",
-    shadowColor: "#171717",
-    shadowOffset: { width: -2, height: 4 },
-    shadowOpacity: 0.5,
-    shadowRadius: 3,
-  },
   image: {
-    width: 100,
     height: 100,
-  },
-  name: {
-    marginTop: 5,
-    fontSize: 16,
   },
 });
 
