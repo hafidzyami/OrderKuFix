@@ -1,7 +1,7 @@
 import { Tabs, router } from "expo-router";
 import { getAuth } from "firebase/auth";
 import React, { useEffect, useState } from "react";
-import { Text, ActivityIndicator, View } from "react-native";
+import { View, Image } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import { FontAwesome } from '@expo/vector-icons';
 import { Ionicons } from "@expo/vector-icons";
@@ -36,15 +36,12 @@ const RootLayout = () => {
     return (
       <View
         style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-        className="bg-mainYellow"
+        className="bg-white"
       >
-        <ActivityIndicator size="large" color="#ffffff" />
-        <Text
-          style={{ marginTop: 20, fontSize: 20 }}
-          className="font-bold text-white"
-        >
-          please wait...
-        </Text>
+        <Image
+          source={require("../loading.gif")}
+          style={{ width: 250, height: 250 }}
+        />
       </View>
     );
   return (

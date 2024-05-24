@@ -28,7 +28,7 @@ function CustomModal({ isVisible, message, onClose }: CustomModalProps) {
   };
 
   return (
-    <Modal isVisible={isVisible} onBackdropPress={onClose}>
+    <Modal isVisible={isVisible} onBackdropPress={onClose} >
       <View style={styles.modalContent}>
         <Text style={styles.title}>Ooops!</Text>
         <Text style={styles.message}>{message}</Text>
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   button: {
-    backgroundColor: "#F8E800",
+    backgroundColor: "#FFF676",
     paddingVertical: 12,
     paddingHorizontal: 12,
     borderRadius: 5,

@@ -1,7 +1,7 @@
 import { Tabs, router, usePathname } from "expo-router";
 import { getAuth } from "firebase/auth";
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, Text, View } from "react-native";
+import { ActivityIndicator, Text, View, Image } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -15,7 +15,7 @@ const RootLayout = () => {
 
     const unsubscribe = auth.onAuthStateChanged((user) => {
       const elapsed = Date.now() - startTime;
-      const remainingTime = Math.max(1500 - elapsed, 0);
+      const remainingTime = Math.max(2000 - elapsed, 0);
 
       setTimeout(() => {
         if (!user) {
@@ -36,10 +36,14 @@ const RootLayout = () => {
     return (
       <View
         style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-        className="bg-mainYellow"
+        className="bg-white"
       >
-        <ActivityIndicator size="large" color="#ffffff" />
-        <Text style={{ marginTop: 20, fontSize: 20 }} className="font-bold text-white">please wait...</Text>
+        {/* <ActivityIndicator size="large" color="#ffffff" /> */}
+        <Image
+          source={require("./assets-customer/loading.gif")}
+          style={{ width: 250, height: 250 }}
+        />
+        
       </View>
     );
   else {

@@ -87,7 +87,7 @@ const AfterLandingScreen = () => {
         <View className="flex-1 items-center justify-center">
           <Image
             source={require("../assets/doodle-image.png")}
-            className="absolute top-0 w-[120%] h-[55%]"
+            className="absolute top-0 w-[120%] h-[55%] opacity-[.40]"
           ></Image>
           <Animated.View
             style={[styles.circle2Ornament, animatedOrnamentStyle]}
@@ -107,11 +107,12 @@ const AfterLandingScreen = () => {
               style={{
                 borderBottomWidth: signInPressed ? 4 : 0,
                 borderBottomColor: signInPressed ? "#F8E800" : "transparent",
+                
               }}
               className="py-3 px-12"
             >
               <Text
-                style={{ color: "#000", fontSize: 18 }}
+                style={{ color: signInPressed ? "#000" : "darkgrey", fontSize: 18 }}
                 className="font-bold"
               >
                 Sign-In
@@ -129,7 +130,7 @@ const AfterLandingScreen = () => {
               }}
             >
               <Text
-                style={{ color: "#000", fontSize: 18 }}
+                style={{ color: signUpPressed ? "#000" : "darkgrey", fontSize: 18 }}
                 className="font-bold"
               >
                 Sign-Up
