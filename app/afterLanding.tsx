@@ -50,15 +50,15 @@ const AfterLandingScreen = () => {
 
   useEffect(() => {
     if (isKeyboardVisible) {
-      logoSize.value = withTiming(50, { duration: 300 });
-      logoMarginTop.value = withTiming(232, { duration: 300 });
+      logoSize.value = withTiming(70, { duration: 300 });
+      logoMarginTop.value = withTiming(229, { duration: 300 });
       logoMarginBottom.value = withTiming(26, { duration: 300 });
-      ornamentHeight.value = withTiming(72, { duration: 0 });
+      ornamentHeight.value = withTiming(68, { duration: 0 });
     } else {
       logoSize.value = withTiming(150, { duration: 300 });
       logoMarginTop.value = withTiming(96, { duration: 300 });
       logoMarginBottom.value = withTiming(80, { duration: 300 });
-      ornamentHeight.value = withTiming(61, { duration: 0 });
+      ornamentHeight.value = withTiming(60, { duration: 0 });
     }
   }, [isKeyboardVisible]);
 
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 2,
+    elevation: 4,
   },
 });
 

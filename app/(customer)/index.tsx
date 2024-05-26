@@ -1,7 +1,6 @@
 import {
   View,
   Text,
-  Button,
   ActivityIndicator,
   StyleSheet,
   ScrollView,
@@ -10,6 +9,7 @@ import {
   Pressable,
   RefreshControl,
   TouchableOpacity,
+  Button,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { getAuth, signOut } from "firebase/auth";
@@ -83,10 +83,24 @@ const CustomerHome = () => {
       </View>
     </TouchableOpacity>
   );
+
+  const renderHorizontalUMKM = (data: any) => (
+    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+      {data.map((item: any) => (
+        <View key={item.id}>{renderUMKMCard({ item })}</View>
+      ))}
+    </ScrollView>
+  );
+
   return (
-    <View className="bg-white h-full">
+    <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+      className="bg-white h-full"
+    >
       <LinearGradient
-        colors={["#fffab3","#FFF676", "#F8E800"]}
+        colors={["#fffab3", "#FFF676", "#F8E800"]}
         className="bg-yellow-200 rounded-b-xl relative h-64 shadow-sm shadow-black"
       >
         <Text className="z-10 mt-36 mx-6 absolute font-extrabold text-4xl">
@@ -95,17 +109,13 @@ const CustomerHome = () => {
         <Image
           source={require("./assets-customer/food-background.png")}
           className="w-full h-64 rounded-b-xl z-0"
-        ></Image>
+        />
       </LinearGradient>
       {loading ? (
-        <ActivityIndicator size="large" color="#F8E800" />
+        <ActivityIndicator size={60} color="#F8E800" className="mt-28" />
       ) : (
         <SafeAreaView>
-          <ScrollView
-            refreshControl={
-              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-            }
-          >
+          <View className="-mt-2 ">
             <Pressable
               onPress={() =>
                 router.replace({
@@ -113,24 +123,12 @@ const CustomerHome = () => {
                   params: { isFavorite: "false" },
                 })
               }
-              className="w-[30%] mx-6 flex flex-row justify-between items-center pr-2 rounded-lg"
+              className="w-[30%] mx-6 flex flex-row justify-between items-center pr-2 rounded-lg "
             >
               <Text className="text-lg text-textButton font-bold">Near Me</Text>
               <AntDesign name="right" size={18} color="black" />
             </Pressable>
-            <View style={{ height: 200 }}>
-              <ScrollView horizontal={true} >
-                <FlatList
-                  data={UMKM}
-                  renderItem={renderUMKMCard}
-                  keyExtractor={(item) => item.id}
-                  horizontal={true}
-                  nestedScrollEnabled={true}
-                  scrollEnabled={false}
-                  className="mr-6"
-                />
-              </ScrollView>
-            </View>
+            <View style={{ height: 200 }} >{renderHorizontalUMKM(UMKM)}</View>
             <Pressable
               onPress={() =>
                 router.replace({
@@ -138,34 +136,25 @@ const CustomerHome = () => {
                   params: { isFavorite: "true" },
                 })
               }
-              className="w-[30%] mx-6 flex flex-row justify-between items-center pr-2 rounded-lg"
+              className="w-[30%] mx-6 flex flex-row justify-between items-center pr-2 rounded-lg mt-4"
             >
-              <Text className="text-lg text-textButton font-bold">Favorite</Text>
+              <Text className="text-lg text-textButton font-bold -mt-1">
+                Favorite
+              </Text>
               <AntDesign name="right" size={18} color="black" />
             </Pressable>
-            
-            <View style={{ height: 150 }}>
-              <ScrollView horizontal={true}>
-                <FlatList
-                  data={UMKM.filter(
-                    (item: any) => favUMKM && favUMKM.includes(item.id)
-                  )}
-                  renderItem={renderUMKMCard}
-                  keyExtractor={(item) => item.id}
-                  horizontal={true}
-                  nestedScrollEnabled={true}
-                  scrollEnabled={false}
-                />
-              </ScrollView>
+            <View style={{ height: 200 }} className="mb-10">
+              {renderHorizontalUMKM(
+                UMKM.filter((item: any) => favUMKM && favUMKM.includes(item.id))
+              )}
             </View>
-            <Button
-              title="Sign Out"
-              onPress={() => signOut(getAuth())}
-            ></Button>
-          </ScrollView>
+          </View>
+          <View className="w-[90%] mx-6 mb-6">
+            <Button title="Sign Out" onPress={() => signOut(getAuth())} />
+          </View>
         </SafeAreaView>
       )}
-    </View>
+    </ScrollView>
   );
 };
 

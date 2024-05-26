@@ -1,27 +1,18 @@
-import {
-  View,
-  Text,
-  TextInput,
-  Button,
-  Pressable,
-  Animated,
-} from "react-native";
 import React, { useRef, useState } from "react";
-import {
-  createUserWithEmailAndPassword,
-  getAuth,
-  updateProfile,
-} from "firebase/auth";
+import { View, Text, TextInput, Pressable, Animated, TouchableOpacity } from "react-native";
+import { createUserWithEmailAndPassword, getAuth, updateProfile } from "firebase/auth";
 import { router } from "expo-router";
 import Checkbox from "expo-checkbox";
 import { arrayUnion, doc, getFirestore, setDoc } from "firebase/firestore";
 import CustomModal from "../components/CustomModal";
+import Icon from "react-native-vector-icons/MaterialIcons"; // Pastikan untuk menginstal library ini
 
 const RegisterScreen = () => {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [isChecked, setChecked] = useState(false);
+  const [isPasswordVisible, setPasswordVisible] = useState<boolean>(false);
   const [isModalVisible, setModalVisible] = useState<boolean>(false);
   const [modalMessage, setModalMessage] = useState<string>("");
   const animated = useRef(new Animated.Value(1)).current;
@@ -45,6 +36,7 @@ const RegisterScreen = () => {
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
+
   const handleRegister = async () => {
     try {
       await createUserWithEmailAndPassword(getAuth(), email, password);
@@ -100,8 +92,12 @@ const RegisterScreen = () => {
     }
   };
 
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!isPasswordVisible);
+  };
+
   return (
-    <View className="flex flex-col gap-y-11 ">
+    <View className="flex flex-col gap-y-12 ">
       <View className="flex flex-col gap-y-4 px-2">
         <View>
           <Text className="text-base">Fullname</Text>
@@ -124,12 +120,17 @@ const RegisterScreen = () => {
         </View>
         <View>
           <Text className="text-base">Password</Text>
-          <TextInput
-            placeholder="********"
-            secureTextEntry
-            onChangeText={(text) => setPassword(text)}
-            className="text-base py-2 border-b-2 border-gray-400"
-          />
+          <View className="flex flex-row items-center border-b-2 border-gray-400">
+            <TextInput
+              placeholder="********"
+              secureTextEntry={!isPasswordVisible}
+              onChangeText={(text) => setPassword(text)}
+              className="text-base py-2 flex-1"
+            />
+            <TouchableOpacity onPress={togglePasswordVisibility}>
+              <Icon name={isPasswordVisible ? "visibility" : "visibility-off"} size={24} color={"grey"} />
+            </TouchableOpacity>
+          </View>
         </View>
         <View className="flex flex-row gap-x-4 items-center">
           <Text className="text-base font-bold">UMKM?</Text>

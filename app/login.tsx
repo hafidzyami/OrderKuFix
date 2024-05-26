@@ -1,12 +1,14 @@
 import React, { useState, useRef } from "react";
-import { View, Text, TextInput, Pressable, Animated } from "react-native";
+import { View, Text, TextInput, Pressable, Animated, TouchableOpacity } from "react-native";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { router } from "expo-router";
 import CustomModal from "../components/CustomModal";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [isPasswordVisible, setPasswordVisible] = useState<boolean>(false);
   const [isModalVisible, setModalVisible] = useState<boolean>(false);
   const [modalMessage, setModalMessage] = useState<string>("");
   const animated = useRef(new Animated.Value(1)).current;
@@ -48,8 +50,12 @@ const LoginScreen = () => {
       });
   };
 
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!isPasswordVisible);
+  };
+
   return (
-    <View className="flex flex-col gap-y-44">
+    <View className="flex flex-col gap-y-[174px]">
       <View className="flex flex-col gap-y-4 px-2">
         <View>
           <Text className="text-base">Email Address</Text>
@@ -62,13 +68,18 @@ const LoginScreen = () => {
         </View>
 
         <View>
-          <Text className="text-base ">Password</Text>
-          <TextInput
-            placeholder="********"
-            secureTextEntry
-            onChangeText={(text) => setPassword(text)}
-            className="text-sm py-2 border-b-2 border-gray-400"
-          />
+          <Text className="text-base">Password</Text>
+          <View className="flex flex-row items-center border-b-2 border-gray-400">
+            <TextInput
+              placeholder="********"
+              secureTextEntry={!isPasswordVisible}
+              onChangeText={(text) => setPassword(text)}
+              className="text-sm py-2 flex-1"
+            />
+            <TouchableOpacity onPress={togglePasswordVisibility}>
+              <Icon name={isPasswordVisible ? "visibility" : "visibility-off"} size={24} color={"gray"} />
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
 

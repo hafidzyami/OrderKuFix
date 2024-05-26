@@ -9,6 +9,7 @@ import "react-native-reanimated";
 
 const RootLayout = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const pathname = usePathname(); // Get current path
   useEffect(() => {
     const auth = getAuth();
     const startTime = Date.now();
@@ -43,7 +44,6 @@ const RootLayout = () => {
           source={require("./assets-customer/loading.gif")}
           style={{ width: 250, height: 250 }}
         />
-        
       </View>
     );
   else {
@@ -52,7 +52,7 @@ const RootLayout = () => {
         screenOptions={{
           tabBarActiveTintColor: "black",
           tabBarStyle: {
-            height: 75,
+            height: pathname === "/ChatRoom" ? 0 : 75,
           },
           tabBarShowLabel: false,
         }}
