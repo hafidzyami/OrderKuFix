@@ -24,12 +24,23 @@ import { router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
 import { AntDesign } from "@expo/vector-icons";
+import {
+  useFonts,
+  Montserrat_400Regular,
+  Montserrat_700Bold,
+} from "@expo-google-fonts/montserrat";
+import { Entypo } from "@expo/vector-icons";
 
 const CustomerHome = () => {
   const [UMKM, setUMKM] = useState<any>();
   const [loading, setLoading] = useState<boolean>(true);
   const [favUMKM, setFavUMKM] = useState<any>();
   const [refreshing, setRefreshing] = useState<boolean>(false);
+
+  const [fontsLoaded] = useFonts({
+    Montserrat_400Regular,
+    Montserrat_700Bold,
+  });
 
   const fetchUMKM = async () => {
     try {
@@ -73,22 +84,25 @@ const CustomerHome = () => {
       }
       className=""
     >
-      <View className="bg-white ml-6 my-2 rounded-lg w-36 shadow-sm shadow-black">
+      <View className="bg-white my-2 rounded-lg w-36 shadow-sm shadow-black">
         <Image
           // style={styles.image}
           className="w-full rounded-t-lg h-32"
           source={{ uri: item.photoURL || "" }}
         />
-        <Text className="my-2 mx-2 font-bold h-10">{item.nama}</Text>
+        <Text className="my-2 mx-2 font-semibold h-10">{item.nama}</Text>
       </View>
     </TouchableOpacity>
   );
 
   const renderHorizontalUMKM = (data: any) => (
-    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+    <ScrollView horizontal showsHorizontalScrollIndicator={false} className="">
       {data.map((item: any) => (
-        <View key={item.id}>{renderUMKMCard({ item })}</View>
+        <View key={item.id} className="ml-6">
+          {renderUMKMCard({ item })}
+        </View>
       ))}
+      <View className="w-6" />
     </ScrollView>
   );
 
@@ -103,13 +117,24 @@ const CustomerHome = () => {
         colors={["#fffab3", "#FFF676", "#F8E800"]}
         className="bg-yellow-200 rounded-b-xl relative h-64 shadow-sm shadow-black"
       >
-        <Text className="z-10 mt-36 mx-6 absolute font-extrabold text-4xl">
+        <Text
+          style={{ fontFamily: "Montserrat_700Bold" }}
+          className="z-10 mt-36 mx-6 absolute font-extrabold text-4xl"
+        >
           Delicious{"\n"}food for you
         </Text>
         <Image
           source={require("./assets-customer/food-background.png")}
           className="w-full h-64 rounded-b-xl z-0"
         />
+        <View className="absolute top-12 right-4">
+          <Entypo
+            name="log-out"
+            size={26}
+            color="black"
+            onPress={() => signOut(getAuth())}
+          />
+        </View>
       </LinearGradient>
       {loading ? (
         <ActivityIndicator size={60} color="#F8E800" className="mt-28" />
@@ -128,7 +153,7 @@ const CustomerHome = () => {
               <Text className="text-lg text-textButton font-bold">Near Me</Text>
               <AntDesign name="right" size={18} color="black" />
             </Pressable>
-            <View style={{ height: 200 }} >{renderHorizontalUMKM(UMKM)}</View>
+            <View style={{ height: 200 }}>{renderHorizontalUMKM(UMKM)}</View>
             <Pressable
               onPress={() =>
                 router.replace({
@@ -149,11 +174,13 @@ const CustomerHome = () => {
               )}
             </View>
           </View>
-          <View className="w-[90%] mx-6 mb-6">
-            <Button title="Sign Out" onPress={() => signOut(getAuth())} />
-          </View>
         </SafeAreaView>
       )}
+      <View className="flex items-center mb-6 mt-2">
+        <Text className="font-semibold">
+          Developed by Hafidz, Dastin, Daniel
+        </Text>
+      </View>
     </ScrollView>
   );
 };

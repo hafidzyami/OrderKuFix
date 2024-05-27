@@ -32,8 +32,12 @@ const UMKMenu = () => {
   const [refreshing, setRefreshing] = useState<boolean>(false);
   let arrayCartCheckout: cartCheckout[] = [];
 
+  console.log(params)
+
   const fetchData = async () => {
     try {
+      setMenu([])
+      setLoading(true);
       const docRef = doc(
         getFirestore(),
         "menu",
@@ -45,8 +49,13 @@ const UMKMenu = () => {
       } else {
         setMenu([]);
       }
-    } catch (error) {}
-    setLoading(false);
+      console.log(menu)
+    } catch (error) {
+      console.log(error);
+    }
+    finally{
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -163,7 +172,7 @@ const UMKMenu = () => {
   return (
     <View style={styles.container}>
       {loading ? (
-        <ActivityIndicator size="large" color="#F8E800" />
+        <ActivityIndicator size={32} color="#F8E800" />
       ) : (
         <SafeAreaView>
           <ScrollView
