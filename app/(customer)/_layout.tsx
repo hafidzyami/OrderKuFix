@@ -108,7 +108,7 @@ const RootLayout = () => {
           name="(UMKM)/ListUMKM"
           options={{ href: null, unmountOnBlur: true }}
         />
-        <Tabs.Screen name="(UMKM)/ListMenu" options={{ href: null }} />
+        <Tabs.Screen name="(UMKM)/ListMenu" options={{ href: null, unmountOnBlur : true }} />
         <Tabs.Screen
           name="(UMKM)/Checkout"
           options={{ href: null, unmountOnBlur: true }}

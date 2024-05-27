@@ -80,7 +80,7 @@ const CustomerHome = () => {
   const renderUMKMCard = ({ item }: any) => (
     <TouchableOpacity
       onPress={() =>
-        router.push({ pathname: "../(UMKM)/ListMenu", params: item })
+        router.replace({ pathname: "../(UMKM)/ListMenu", params: item })
       }
       className=""
     >
