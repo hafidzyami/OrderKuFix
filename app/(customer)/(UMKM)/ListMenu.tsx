@@ -32,7 +32,9 @@ const UMKMenu = () => {
   const [refreshing, setRefreshing] = useState<boolean>(false);
   let arrayCartCheckout: cartCheckout[] = [];
 
+
   const fetchData = async () => {
+    console.log("ngefetch data")
     try {
       const docRef = doc(
         getFirestore(),
@@ -42,7 +44,9 @@ const UMKMenu = () => {
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         setMenu(docSnap.data().menus);
+        console.log(docSnap.data().menus)
       } else {
+        console.log("gaada")
         setMenu([]);
       }
     } catch (error) {}
@@ -162,6 +166,7 @@ const UMKMenu = () => {
   );
   return (
     <View style={styles.container}>
+      <Text>{params.id}</Text>
       {loading ? (
         <ActivityIndicator size="large" color="#F8E800" />
       ) : (
