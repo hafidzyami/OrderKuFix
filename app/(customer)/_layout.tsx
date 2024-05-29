@@ -1,7 +1,7 @@
 import { Tabs, router, usePathname } from "expo-router";
 import { getAuth } from "firebase/auth";
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, Text, View, Image } from "react-native";
+import { View, Image, TouchableOpacity, StyleSheet } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -106,9 +106,24 @@ const RootLayout = () => {
         />
         <Tabs.Screen
           name="(UMKM)/ListUMKM"
-          options={{ href: null, unmountOnBlur: true }}
+          options={{
+            title: "Near Me",
+            headerTitleAlign: "center",
+            headerStyle: styles.headerStyle,
+            href: null,
+            unmountOnBlur: true,
+            headerShown: true,
+            headerLeft: () => (
+              <TouchableOpacity onPress={() => router.back()} className="ml-5">
+                <Ionicons name="chevron-back" size={24} color="black" />
+              </TouchableOpacity>
+            ),
+          }}
         />
-        <Tabs.Screen name="(UMKM)/ListMenu" options={{ href: null, unmountOnBlur : true }} />
+        <Tabs.Screen
+          name="(UMKM)/ListMenu"
+          options={{ href: null, unmountOnBlur: true, headerShown: true }}
+        />
         <Tabs.Screen
           name="(UMKM)/Checkout"
           options={{ href: null, unmountOnBlur: true }}
@@ -121,5 +136,16 @@ const RootLayout = () => {
     );
   }
 };
+
+const styles = StyleSheet.create({
+  headerStyle: {
+    height: 100,
+    shadowColor: "grey",
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 0,
+    // }
+  },
+});
 
 export default RootLayout;

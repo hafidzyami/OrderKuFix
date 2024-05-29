@@ -24,11 +24,11 @@ import { router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
 import { AntDesign } from "@expo/vector-icons";
-import {
-  useFonts,
-  Montserrat_400Regular,
-  Montserrat_700Bold,
-} from "@expo-google-fonts/montserrat";
+// import {
+//   useFonts,
+//   Montserrat_400Regular,
+//   Montserrat_700Bold,
+// } from "@expo-google-fonts/montserrat";
 import { Entypo } from "@expo/vector-icons";
 
 const CustomerHome = () => {
@@ -37,10 +37,10 @@ const CustomerHome = () => {
   const [favUMKM, setFavUMKM] = useState<any>();
   const [refreshing, setRefreshing] = useState<boolean>(false);
 
-  const [fontsLoaded] = useFonts({
-    Montserrat_400Regular,
-    Montserrat_700Bold,
-  });
+  // const [fontsLoaded] = useFonts({
+  //   Montserrat_400Regular,
+  //   Montserrat_700Bold,
+  // });
 
   const fetchUMKM = async () => {
     try {
@@ -86,11 +86,10 @@ const CustomerHome = () => {
     >
       <View className="bg-white my-2 rounded-lg w-36 shadow-sm shadow-black">
         <Image
-          // style={styles.image}
           className="w-full rounded-t-lg h-32"
           source={{ uri: item.photoURL || "" }}
         />
-        <Text className="my-2 mx-2 font-semibold h-10">{item.nama}</Text>
+        <Text className="my-2 mx-2 font-semibold h-10 text-sm">{item.nama}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -118,7 +117,7 @@ const CustomerHome = () => {
         className="bg-yellow-200 rounded-b-xl relative h-64 shadow-sm shadow-black"
       >
         <Text
-          style={{ fontFamily: "Montserrat_700Bold" }}
+          // style={{ fontFamily: "Montserrat_700Bold" }}
           className="z-10 mt-36 mx-6 absolute font-extrabold text-4xl"
         >
           Delicious{"\n"}food for you

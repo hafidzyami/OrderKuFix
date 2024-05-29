@@ -129,6 +129,8 @@ const MyOrderScreen = () => {
       </TouchableOpacity>
     );
   };
+
+  console.log(orders)
   return (
     <View>
       {loading ? (
@@ -144,7 +146,7 @@ const MyOrderScreen = () => {
               key={"#"}
               data={orders}
               renderItem={renderOrderItem}
-              keyExtractor={(item) => item.timeStampOrder + item.totalPrice }
+              keyExtractor={(item) => item.timeStampOrder + item.totalPrice + Math.random() }
               nestedScrollEnabled={true}
               scrollEnabled={false}
             />
