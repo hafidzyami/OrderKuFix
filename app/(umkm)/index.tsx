@@ -76,6 +76,8 @@ const CustomerHome = () => {
           width : 360,
           marginLeft : 30
         }}
+
+        onPress={() => router.push("./underMaintenance")}
       >
         <View className="d-flex flex-row items-center">
           <Image

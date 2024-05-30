@@ -50,7 +50,7 @@ const RootLayout = () => {
       screenOptions={{
         tabBarActiveTintColor: "black",
         tabBarStyle: {
-          height: pathname === "/ChatRoom" ? 0 : 75,
+          height: pathname === "/ChatRoom" || pathname === "/underMaintenance"? 0 : 75,
         },
         tabBarShowLabel: false,
         tabBarHideOnKeyboard: true,
@@ -118,6 +118,7 @@ const RootLayout = () => {
       />
       <Tabs.Screen name="TotalPendapatan" options={{ href: null }} />
       <Tabs.Screen name="(Profile)/EditProfile" options={{ href: null }} />
+      <Tabs.Screen name="underMaintenance" options={{ href: null, headerShown: false }} />
       <Tabs.Screen
         name="(Menu)/UpdateMenu"
         options={{
