@@ -10,6 +10,7 @@ import {
   RefreshControl,
   TouchableOpacity,
   Button,
+  Modal,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { getAuth, signOut } from "firebase/auth";
@@ -23,24 +24,14 @@ import {
 import { router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
-import { AntDesign } from "@expo/vector-icons";
-// import {
-//   useFonts,
-//   Montserrat_400Regular,
-//   Montserrat_700Bold,
-// } from "@expo-google-fonts/montserrat";
-import { Entypo } from "@expo/vector-icons";
+import { AntDesign, Entypo } from "@expo/vector-icons";
 
 const CustomerHome = () => {
   const [UMKM, setUMKM] = useState<any>();
   const [loading, setLoading] = useState<boolean>(true);
   const [favUMKM, setFavUMKM] = useState<any>();
   const [refreshing, setRefreshing] = useState<boolean>(false);
-
-  // const [fontsLoaded] = useFonts({
-  //   Montserrat_400Regular,
-  //   Montserrat_700Bold,
-  // });
+  const [isModalVisible, setModalVisible] = useState<boolean>(false);
 
   const fetchUMKM = async () => {
     try {
@@ -62,8 +53,8 @@ const CustomerHome = () => {
         setFavUMKM(docSnap.data().favUMKM);
       }
       setLoading(false);
-    } catch (error) {
-      alert(error);
+    } catch (error: any) {
+      alert(error.message);
     }
   };
 
@@ -77,6 +68,16 @@ const CustomerHome = () => {
     fetchUMKM();
   }, []);
 
+  const handleLogout = async () => {
+    const auth = getAuth();
+    try {
+      await signOut(auth);
+      router.push("/login");
+    } catch (error: any) {
+      alert("Error logging out: " + error.message);
+    }
+  };
+
   const renderUMKMCard = ({ item }: any) => (
     <TouchableOpacity
       onPress={() =>
@@ -89,7 +90,9 @@ const CustomerHome = () => {
           className="w-full rounded-t-lg h-32"
           source={{ uri: item.photoURL || "" }}
         />
-        <Text className="my-2 mx-2 font-semibold h-10 text-sm">{item.nama}</Text>
+        <Text className="my-2 mx-2 font-semibold h-10 text-sm">
+          {item.nama}
+        </Text>
       </View>
     </TouchableOpacity>
   );
@@ -116,10 +119,7 @@ const CustomerHome = () => {
         colors={["#fffab3", "#FFF676", "#F8E800"]}
         className="bg-yellow-200 rounded-b-xl relative h-64 shadow-sm shadow-black"
       >
-        <Text
-          // style={{ fontFamily: "Montserrat_700Bold" }}
-          className="z-10 mt-36 mx-6 absolute font-extrabold text-4xl"
-        >
+        <Text className="z-10 mt-36 mx-6 absolute font-extrabold text-4xl">
           Delicious{"\n"}food for you
         </Text>
         <Image
@@ -131,7 +131,7 @@ const CustomerHome = () => {
             name="log-out"
             size={26}
             color="black"
-            onPress={() => signOut(getAuth())}
+            onPress={() => setModalVisible(true)}
           />
         </View>
       </LinearGradient>
@@ -180,13 +180,96 @@ const CustomerHome = () => {
           Developed by Hafidz, Dastin, Daniel
         </Text>
       </View>
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={isModalVisible}
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Sign Out</Text>
+            <Text style={styles.modalMessage}>Are you sure to sign out?</Text>
+            <View style={styles.modalButtons}>
+              <Pressable
+                style={[styles.button, styles.buttonYes]}
+                onPress={handleLogout}
+              >
+                <Text style={styles.buttonText}>Yes</Text>
+              </Pressable>
+              <Pressable
+                style={[styles.button, styles.buttonNo]}
+                onPress={() => setModalVisible(false)}
+              >
+                <Text style={styles.buttonText}>No</Text>
+              </Pressable>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  image: {
-    height: 100,
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalContent: {
+    width: 320,
+    padding: 20,
+    backgroundColor: "white",
+    borderRadius: 10,
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 10,
+  },
+  modalMessage: {
+    fontSize: 16,
+    marginBottom: 24,
+  },
+  modalButtons: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    gap: 12,
+    width: "100%",
+  },
+  button: {
+    // padding: 10,
+    // borderRadius: 5,
+    // minWidth: 100,
+    // alignItems: "center",
+
+    padding: 10,
+    borderRadius: 5,
+
+    minWidth: 100,
+    alignItems: "center",
+  },
+  buttonYes: {
+    backgroundColor: "#FFF676",
+    shadowColor: "black",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 1,
+    shadowRadius: 2,
+    elevation: 2,
+  },
+  buttonNo: {
+    backgroundColor: "#FFFFFF",
+    shadowColor: "gray",
+    shadowOpacity: 1,
+    shadowRadius: 2,
+    elevation: 2,
+  },
+  buttonText: {
+    color: "black",
+    fontSize: 14,
+    fontWeight: "bold",
   },
 });
 
