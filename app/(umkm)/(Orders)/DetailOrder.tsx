@@ -18,6 +18,7 @@ import {
   arrayUnion,
   doc,
   getFirestore,
+  setDoc,
   updateDoc,
 } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
@@ -29,6 +30,16 @@ interface OrderCustomer {
   idUMKM: any;
   namaUMKM: any;
   photoUMKM: any;
+  timeStampFinish: any;
+  timeStampOrder: any;
+  totalPrice: any;
+}
+
+interface OrderUMKM {
+  cart: any;
+  idCustomer: any;
+  namaCustomer: any;
+  photoCustomer: any;
   timeStampFinish: any;
   timeStampOrder: any;
   totalPrice: any;
@@ -61,6 +72,16 @@ const DetailOrder = () => {
     totalPrice: orderItem.totalPrice,
   };
 
+  const umkmOrder : OrderUMKM = {
+    cart: orderItem.cart,
+    idCustomer: orderItem.idCustomer,
+    namaCustomer: orderItem.namaCustomer,
+    photoCustomer: formatImageURL(orderItem.photoCustomer),
+    timeStampFinish: orderItem.timeStampFinish,
+    timeStampOrder: orderItem.timeStampOrder,
+    totalPrice: orderItem.totalPrice
+  }
+
   const totalPendapatan: TotalPendapatan = {
     idUMKM: getAuth().currentUser?.uid,
     timeStampFinish: orderItem.timeStampFinish,
@@ -70,33 +91,34 @@ const DetailOrder = () => {
   const markAsComplete = async () => {
     setLoadingUpdate(true);
     try {
-      console.log(orderItem);
       await updateDoc(
         doc(getFirestore(), "orderumkm", getAuth().currentUser!!.uid),
         {
-          orders: arrayRemove(orderItem),
+          orders: arrayRemove(umkmOrder),
         }
-      );
+      ).then(() => {
+        umkmOrder.timeStampFinish = getCurrentTimestamp();
+        updateDoc(
+          doc(getFirestore(), "orderumkm", getAuth().currentUser!!.uid),
+          {
+            orders: arrayUnion(umkmOrder),
+          }
+        );
+      })
       await updateDoc(
         doc(getFirestore(), "ordercustomer", orderItem.idCustomer),
         {
           orders: arrayRemove(customerOrder),
         }
-      );
-      orderItem.timeStampFinish = getCurrentTimestamp();
-      customerOrder.timeStampFinish = getCurrentTimestamp();
-      await updateDoc(
-        doc(getFirestore(), "orderumkm", getAuth().currentUser!!.uid),
-        {
-          orders: arrayUnion(orderItem),
-        }
-      );
-      await updateDoc(
-        doc(getFirestore(), "ordercustomer", orderItem.idCustomer),
-        {
-          orders: arrayUnion(customerOrder),
-        }
-      );
+      ).then(()=>{
+        customerOrder.timeStampFinish = getCurrentTimestamp();
+        updateDoc(
+          doc(getFirestore(), "ordercustomer", orderItem.idCustomer),
+          {
+            orders: arrayUnion(customerOrder),
+          }
+        );
+      })
       await updateDoc(
         doc(getFirestore(), "totalpendapatan", getAuth().currentUser!!.uid),
         {
