@@ -52,7 +52,10 @@ const RootLayout = () => {
         screenOptions={{
           tabBarActiveTintColor: "black",
           tabBarStyle: {
-            height: pathname === "/ChatRoom" || pathname === "/(UMKM)/ListMenu" ? 0 : 75,
+            height:
+              pathname === "/ChatRoom" || pathname === "/(UMKM)/ListMenu"
+                ? 0
+                : 75,
           },
           tabBarShowLabel: false,
         }}
@@ -61,6 +64,7 @@ const RootLayout = () => {
           name="index"
           options={{
             title: "Home",
+
             unmountOnBlur: true,
             tabBarIcon: ({ color }) => (
               <Entypo name="home" size={32} color={color} />
@@ -123,11 +127,27 @@ const RootLayout = () => {
         />
         <Tabs.Screen
           name="(UMKM)/ListMenu"
-          options={{ title: "list menu", href: null, unmountOnBlur: true, headerShown: false }}
+          options={{
+            title: "list menu",
+            href: null,
+            unmountOnBlur: true,
+            headerShown: false,
+          }}
         />
         <Tabs.Screen
           name="(UMKM)/Checkout"
-          options={{ href: null, unmountOnBlur: true }}
+          options={{
+            href: null,
+            unmountOnBlur: true,
+            title: "Checkout",
+            headerStyle: styles.headerStyle,
+            headerTitleAlign: "center",
+            headerLeft: () => (
+              <TouchableOpacity onPress={() => router.back()} className="ml-5">
+                <Ionicons name="chevron-back" size={24} color="black" />
+              </TouchableOpacity>
+            ),
+          }}
         />
         <Tabs.Screen
           name="ChatRoom"

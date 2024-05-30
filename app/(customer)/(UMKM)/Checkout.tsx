@@ -31,7 +31,7 @@ const Checkout = () => {
   );
   const [loadingImage, setLoadingImage] = useState<boolean>(true);
   const [loadingOrder, setLoadingOrder] = useState<boolean>(false);
-  const [now, setNow] = useState<any>(getCurrentTimestamp())
+  const [now, setNow] = useState<any>(getCurrentTimestamp());
 
   const handleOrder = async (item: any) => {
     try {
@@ -47,7 +47,7 @@ const Checkout = () => {
           orders: arrayUnion({
             idUMKM: params.idUMKM,
             namaUMKM: params.namaUMKM,
-            photoUMKM : params.photoUMKM,
+            photoUMKM: params.photoUMKM,
             cart: item,
             totalPrice: calculatePrice(),
             timeStampOrder: now,
@@ -59,7 +59,7 @@ const Checkout = () => {
           orders: arrayUnion({
             idUMKM: params.idUMKM,
             namaUMKM: params.namaUMKM,
-            photoUMKM : params.photoUMKM,
+            photoUMKM: params.photoUMKM,
             cart: item,
             totalPrice: calculatePrice(),
             timeStampOrder: now,
@@ -184,7 +184,18 @@ const Checkout = () => {
   };
 
   return (
-    <ScrollView style={{ marginLeft: 10 }}>
+    <ScrollView className="pt-6 bg-white h-full">
+      <View className="border-[1px] mx-4 p-4 rounded-xl flex flex-row">
+        <Image
+          source={require("./pickupBag.png")}
+          className="w-16 h-16"
+        ></Image>
+        <View className="ml-4">
+          <Text className="font-bold text-lg">Pickup</Text>
+          <Text>30-60 minutes</Text>
+        </View>
+      </View>
+      <Text>Item</Text>
       <Text>Checkout</Text>
       <SafeAreaView>
         <ScrollView>

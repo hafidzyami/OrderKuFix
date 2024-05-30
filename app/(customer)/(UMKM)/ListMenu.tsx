@@ -247,7 +247,7 @@ const UMKMenu = () => {
             <ActivityIndicator size={60} color="#F8E800" className="mt-10" />
           ) : (
             <SafeAreaView>
-              <View className="mb-24">
+              <View className="mb-6">
                 <FlatList
                   key={"#"}
                   numColumns={2}
@@ -258,6 +258,9 @@ const UMKMenu = () => {
                   scrollEnabled={false}
                   className="mx-4"
                 />
+              </View>
+              <View className="bg-mainYellow h-20 rounded-t-xl">
+                
               </View>
             </SafeAreaView>
           )}
@@ -286,7 +289,7 @@ const UMKMenu = () => {
                 at {typeof params.nama === "string" ? (params.nama).slice(5,100) : ""}
               </Text>
             </View>
-            <Text className="font-bold mt-2 text-xl ">Rp {formatRupiah(sumOfPrice())}</Text>
+            <Text className="font-bold mt-1 text-xl ">Rp {formatRupiah(sumOfPrice())}</Text>
           </View>
         </TouchableOpacity>
       )}
