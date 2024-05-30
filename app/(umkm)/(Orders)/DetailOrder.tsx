@@ -72,19 +72,13 @@ const DetailOrder = () => {
     totalPrice: orderItem.totalPrice,
   };
 
-  const umkmOrder : OrderUMKM = {
+  const umkmOrder: OrderUMKM = {
     cart: orderItem.cart,
     idCustomer: orderItem.idCustomer,
     namaCustomer: orderItem.namaCustomer,
     photoCustomer: formatImageURL(orderItem.photoCustomer),
     timeStampFinish: orderItem.timeStampFinish,
     timeStampOrder: orderItem.timeStampOrder,
-    totalPrice: orderItem.totalPrice
-  }
-
-  const totalPendapatan: TotalPendapatan = {
-    idUMKM: getAuth().currentUser?.uid,
-    timeStampFinish: orderItem.timeStampFinish,
     totalPrice: orderItem.totalPrice,
   };
 
@@ -104,21 +98,24 @@ const DetailOrder = () => {
             orders: arrayUnion(umkmOrder),
           }
         );
-      })
+      });
       await updateDoc(
         doc(getFirestore(), "ordercustomer", orderItem.idCustomer),
         {
           orders: arrayRemove(customerOrder),
         }
-      ).then(()=>{
+      ).then(() => {
         customerOrder.timeStampFinish = getCurrentTimestamp();
-        updateDoc(
-          doc(getFirestore(), "ordercustomer", orderItem.idCustomer),
-          {
-            orders: arrayUnion(customerOrder),
-          }
-        );
-      })
+        updateDoc(doc(getFirestore(), "ordercustomer", orderItem.idCustomer), {
+          orders: arrayUnion(customerOrder),
+        });
+      });
+
+      const totalPendapatan: TotalPendapatan = {
+        idUMKM: getAuth().currentUser?.uid,
+        timeStampFinish: getCurrentTimestamp(),
+        totalPrice: orderItem.totalPrice,
+      };
       await updateDoc(
         doc(getFirestore(), "totalpendapatan", getAuth().currentUser!!.uid),
         {
