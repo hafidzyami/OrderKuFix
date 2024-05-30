@@ -98,7 +98,19 @@ const RootLayout = () => {
       />
       <Tabs.Screen
         name="(Menu)/AddMenu"
-        options={{ href: null, unmountOnBlur: true }}
+        options={{
+          href: null,
+          unmountOnBlur: true,
+          title: "Add Menu",
+          headerStyle: styles.headerStyle,
+          headerLeft: () => (
+            <View className="ml-3">
+              <TouchableOpacity>
+                <Ionicons name="chevron-back" size={24} color="black" />
+              </TouchableOpacity>
+            </View>
+          ),
+        }}
       />
       <Tabs.Screen
         name="(Menu)/EditMenu"
@@ -116,9 +128,37 @@ const RootLayout = () => {
           ),
         }}
       />
-      <Tabs.Screen name="TotalPendapatan" options={{ href: null }} />
-      <Tabs.Screen name="(Profile)/EditProfile" options={{ href: null }} />
-      <Tabs.Screen name="underMaintenance" options={{ href: null, headerShown: false }} />
+      <Tabs.Screen
+        name="TotalPendapatan"
+        options={{
+          href: null,
+          title: "Total Pendapatan",
+          unmountOnBlur: true,
+          headerStyle: styles.headerStyle,
+          headerLeft: () => (
+            <View className="ml-3">
+              <TouchableOpacity>
+                <Ionicons name="chevron-back" size={24} color="black" />
+              </TouchableOpacity>
+            </View>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="(Profile)/EditProfile"
+        options={{
+          href: null,
+          title: "Edit Profile",
+          headerStyle: styles.headerStyle,
+          headerLeft: () => (
+            <View className="ml-3">
+              <TouchableOpacity>
+                <Ionicons name="chevron-back" size={24} color="black" />
+              </TouchableOpacity>
+            </View>
+          ),
+        }}
+      />
       <Tabs.Screen
         name="(Menu)/UpdateMenu"
         options={{
@@ -137,11 +177,39 @@ const RootLayout = () => {
       />
       <Tabs.Screen
         name="(Orders)/DetailOrder"
-        options={{ href: null, unmountOnBlur: true }}
+        options={{
+          href: null,
+          unmountOnBlur: true,
+          title: "Detail Order",
+          headerStyle: styles.headerStyle,
+          headerLeft: () => (
+            <View className="ml-3">
+              <TouchableOpacity>
+                <Ionicons name="chevron-back" size={24} color="black" />
+              </TouchableOpacity>
+            </View>
+          ),
+        }}
       />
       <Tabs.Screen
         name="ChatRoom"
         options={{ href: null, unmountOnBlur: true }}
+      />
+       <Tabs.Screen
+        name="underMaintenance"
+        options={{
+          href: null,
+          title: "Under Maintenance",
+          unmountOnBlur: true,
+          headerStyle: styles.headerStyle,
+          headerLeft: () => (
+            <View className="ml-3">
+              <TouchableOpacity>
+                <Ionicons name="chevron-back" size={24} color="black" />
+              </TouchableOpacity>
+            </View>
+          ),
+        }}
       />
     </Tabs>
   );

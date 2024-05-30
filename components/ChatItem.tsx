@@ -54,9 +54,8 @@ const ChatItem = (user: any) => {
       ).slice(-2)}/${("0" + (date.getMonth() + 1)).slice(
         -2
       )}/${date.getFullYear()}`;
-    }
-    else{
-      return "Loading..."
+    } else {
+      return "Loading...";
     }
   };
   return (
@@ -64,13 +63,20 @@ const ChatItem = (user: any) => {
       className="flex flex-row justify-between mx-4 item-centers gap-3 pb-2"
       onPress={() => router.push({ pathname: "./ChatRoom", params: user.user })}
     >
-      <Image source={{ uri: user.user.photoURL }} height={75} width={75} />
+      <Image
+        source={{ uri: user.user.photoURL }}
+        height={80}
+        width={80}
+        borderRadius={50}
+      />
       <View className="flex-1 gap-1">
         <View>
-          <Text>{user.user.nama}</Text>
+          <Text className="font-bold text-base mb-1">{user.user.nama}</Text>
           <Text>{renderLastMessage()}</Text>
         </View>
-        <Text>{renderLastTime()}</Text>
+      </View>
+      <View className="flex-1 gap-2">
+        <Text className="">{renderLastTime()}</Text>
       </View>
     </TouchableOpacity>
   );

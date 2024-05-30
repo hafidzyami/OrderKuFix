@@ -6,7 +6,13 @@ import {
   RefreshControl,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import { collection, doc, getDoc, getDocs, getFirestore } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  getFirestore,
+} from "firebase/firestore";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ChatList from "../../components/ChatList";
 import { getAuth } from "firebase/auth";
@@ -18,7 +24,7 @@ const chat = () => {
 
   const onRefresh = () => {
     setRefreshing(true);
-    fetchDaftarChat()
+    fetchDaftarChat();
     setRefreshing(false);
   };
 
@@ -35,7 +41,7 @@ const chat = () => {
         const customerData = customerDocSnap.data();
         const daftarChat = customerData.daftarChat;
         setDaftarChat(daftarChat);
-        console.log(daftarChat)
+        console.log(daftarChat);
         try {
           const paramedisRef = collection(getFirestore(), "customer"); // Reference to the Firestore collection
           const snapshot = await getDocs(paramedisRef); // Get all documents from the collection
@@ -57,22 +63,20 @@ const chat = () => {
     }
   };
 
-
   useEffect(() => {
-    fetchDaftarChat()
+    fetchDaftarChat();
   }, []);
 
-
   return (
-    <View>
+    <View className="ml-6">
+      <Text className="font-bold text-lg mb-3 mt-5"> Daftar Customer : </Text>
       {users ? (
-        <SafeAreaView>
+        <SafeAreaView style={{ marginTop : -40 }}>
           <ScrollView
             refreshControl={
               <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             }
           >
-            <Text> Daftar UMKM : </Text>
             <ChatList users={users} />
           </ScrollView>
         </SafeAreaView>
