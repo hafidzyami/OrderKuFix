@@ -21,7 +21,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/iconOK.png",
-        "backgroundColor": "#F7E813"
+        "backgroundColor": "#F7E813",
       },
       "package": "com.hafidzbandung.OrderKU"
     },
@@ -30,7 +30,10 @@
     },
     "extra": {
       "eas": {
-        "projectId": "f6d188e5-9eed-4711-bd3c-7cf36f077e2b"
+        "projectId": "4eb3ea62-779f-4e8c-b3f7-b44b8d848861"
+      },
+      "router": {
+        "origin": false
       }
     },
     "plugins": [

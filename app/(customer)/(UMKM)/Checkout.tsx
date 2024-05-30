@@ -99,6 +99,18 @@ const Checkout = () => {
           }),
         });
       }
+      await updateDoc(
+        doc(getFirestore(), "umkm", typeof params.idUMKM === "string" ? params.idUMKM : ""),
+        {
+          daftarChat: arrayUnion(getAuth().currentUser!!.uid),
+        }
+      );
+      await updateDoc(
+        doc(getFirestore(), "customer", getAuth().currentUser!!.uid),
+        {
+          daftarChat: arrayUnion(typeof params.idUMKM === "string" ? params.idUMKM : ""),
+        }
+      );
     } catch (error) {
       alert(error);
     } finally {

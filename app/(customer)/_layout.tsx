@@ -92,6 +92,7 @@ const RootLayout = () => {
             tabBarIcon: ({ color }) => (
               <Entypo name="chat" size={32} color={color} />
             ),
+            unmountOnBlur: true,
           }}
         />
         <Tabs.Screen

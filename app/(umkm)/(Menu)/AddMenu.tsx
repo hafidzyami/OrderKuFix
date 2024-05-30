@@ -7,6 +7,8 @@ import {
   TextInput,
   ActivityIndicator,
   TouchableOpacity,
+  ScrollView,
+  KeyboardAvoidingView,
 } from "react-native";
 import React, { useState } from "react";
 import { router } from "expo-router";
@@ -97,82 +99,84 @@ const AddMenu = () => {
     }
   };
   return (
-    <View>
-      <View style={styles.container}>
-        <TouchableOpacity style={styles.imagecontainer} onPress={pickImage}>
-          {image !== "" ? (
-            <View>
-              <Image
+    <ScrollView>
+      <KeyboardAvoidingView>
+        <View style={styles.container}>
+          <TouchableOpacity style={styles.imagecontainer} onPress={pickImage}>
+            {image !== "" ? (
+              <View>
+                <Image
+                  style={styles.image}
+                  source={{
+                    uri: image,
+                  }}
+                />
+                <View style={styles.iconWrapper}>
+                  <Entypo name="camera" size={24} color="white" />
+                </View>
+              </View>
+            ) : (
+              <View
                 style={styles.image}
-                source={{
-                  uri: image,
-                }}
-              />
-              <View style={styles.iconWrapper}>
-                <Entypo name="camera" size={24} color="white" />
+                className="border-2 justify-center items-center"
+              >
+                <Text className="text-base">Add Image</Text>
+                <View style={styles.iconWrapper}>
+                  <MaterialIcons name="add-a-photo" size={24} color="white" />
+                </View>
               </View>
-            </View>
-          ) : (
-            <View
-              style={styles.image}
-              className="border-2 justify-center items-center"
-            >
-              <Text className="text-base">Add Image</Text>
-              <View style={styles.iconWrapper}>
-                <MaterialIcons name="add-a-photo" size={24} color="white" />
-              </View>
-            </View>
-          )}
-        </TouchableOpacity>
-        {loadingUpload && <ActivityIndicator size="large" color="#F8E800" />}
-      </View>
-      <View style={{ marginTop: 250, paddingStart: 25, paddingEnd: 25 }}>
-        <View className="flex flex-col gap-y-[174px]">
-          <View className="flex flex-col gap-y-4 px-2">
-            <View>
-              <Text className="text-base">Food Name</Text>
-              <TextInput
-                placeholder="food name"
-                keyboardType="default"
-                onChangeText={(text) => setFoodName(text)}
-                value={foodName}
-                className="text-sm py-2 border-b-2 border-gray-400"
-              />
-            </View>
-
-            <View>
-              <Text className="text-base">Price</Text>
-              <View className="flex flex-row items-center border-b-2 border-gray-400">
+            )}
+          </TouchableOpacity>
+          {loadingUpload && <ActivityIndicator size="large" color="#F8E800" />}
+        </View>
+        <View style={{  paddingStart: 25, paddingEnd: 25 }}>
+          <View className="flex flex-col gap-y-[174px]">
+            <View className="flex flex-col gap-y-4 px-2">
+              <View>
+                <Text className="text-base">Food Name</Text>
                 <TextInput
-                  placeholder="Rp xx.xxx"
-                  keyboardType="numeric"
-                  onChangeText={(text) => handlePrice(text)}
-                  className="text-sm py-2 flex-1"
-                />
-              </View>
-            </View>
-            <View>
-              <Text className="text-base">Description</Text>
-              <View className="flex flex-row items-center border-b-2 border-gray-400">
-                <TextInput
-                  placeholder="description"
+                  placeholder="food name"
                   keyboardType="default"
-                  onChangeText={(text) => setDeskripsi(text)}
-                  className="text-sm py-2 flex-1"
-                  value={deskripsi}
+                  onChangeText={(text) => setFoodName(text)}
+                  value={foodName}
+                  className="text-sm py-2 border-b-2 border-gray-400"
                 />
+              </View>
+
+              <View>
+                <Text className="text-base">Price</Text>
+                <View className="flex flex-row items-center border-b-2 border-gray-400">
+                  <TextInput
+                    placeholder="Rp xx.xxx"
+                    keyboardType="numeric"
+                    onChangeText={(text) => handlePrice(text)}
+                    className="text-sm py-2 flex-1"
+                  />
+                </View>
+              </View>
+              <View>
+                <Text className="text-base">Description</Text>
+                <View className="flex flex-row items-center border-b-2 border-gray-400">
+                  <TextInput
+                    placeholder="description"
+                    keyboardType="default"
+                    onChangeText={(text) => setDeskripsi(text)}
+                    className="text-sm py-2 flex-1"
+                    value={deskripsi}
+                  />
+                </View>
               </View>
             </View>
           </View>
+          <TouchableOpacity
+            onPress={saveUpdates}
+            className="bg-mainYellow py-4 flex items-center rounded-xl shadow-sm shadow-black mt-10 "
+          >
+            <Text className="text-textButton font-bold">Save Updates</Text>
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          onPress={saveUpdates}
-          className="bg-mainYellow py-4 flex items-center rounded-xl shadow-sm shadow-black mt-10 "
-        >
-          <Text className="text-textButton font-bold">Save Updates</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+      </KeyboardAvoidingView>
+    </ScrollView>
   );
 };
 

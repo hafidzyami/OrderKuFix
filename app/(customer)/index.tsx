@@ -72,7 +72,7 @@ const CustomerHome = () => {
     const auth = getAuth();
     try {
       await signOut(auth);
-      router.push("/login");
+      router.push("../afterLanding");
     } catch (error: any) {
       alert("Error logging out: " + error.message);
     }

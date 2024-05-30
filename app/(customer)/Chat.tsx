@@ -6,38 +6,65 @@ import {
   RefreshControl,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import { collection, getDocs, getFirestore } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  getFirestore,
+} from "firebase/firestore";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ChatList from "../../components/ChatList";
+import { getAuth } from "firebase/auth";
 
 const chat = () => {
   const [users, setUsers] = useState<any>();
   const [refreshing, setRefreshing] = useState<boolean>(false);
+  const [daftarChat, setDaftarChat] = useState<any>();
 
   const onRefresh = () => {
     setRefreshing(true);
-    fetchParamedis();
+    fetchDaftarChat()
     setRefreshing(false);
   };
 
-  const fetchParamedis = async () => {
+  const fetchDaftarChat = async () => {
     try {
-      const paramedisRef = collection(getFirestore(), "umkm"); // Reference to the Firestore collection
-      const snapshot = await getDocs(paramedisRef); // Get all documents from the collection
-      const documentData = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setUsers(documentData);
+      const customerDocRef = doc(
+        getFirestore(),
+        "customer",
+        getAuth().currentUser!!.uid
+      );
+      const customerDocSnap = await getDoc(customerDocRef);
+
+      if (customerDocSnap.exists()) {
+        const customerData = customerDocSnap.data();
+        const daftarChat = customerData.daftarChat;
+        setDaftarChat(daftarChat);
+        try {
+          const paramedisRef = collection(getFirestore(), "umkm"); // Reference to the Firestore collection
+          const snapshot = await getDocs(paramedisRef); // Get all documents from the collection
+          const documentData = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+          setUsers(documentData.filter((user) => daftarChat.includes(user.id)));
+        } catch (error) {
+          console.error("Error fetching documents: ", error);
+        }
+      } else {
+        console.log("No such document!");
+        setDaftarChat([]);
+      }
     } catch (error) {
-      console.error("Error fetching documents: ", error);
+      console.error("Error fetching daftarChat:", error);
+      setDaftarChat([]);
     }
   };
 
   useEffect(() => {
-    fetchParamedis();
+    fetchDaftarChat();
   }, []);
-
 
   return (
     <View>
@@ -49,7 +76,7 @@ const chat = () => {
             }
           >
             <Text> Daftar UMKM : </Text>
-            <ChatList users={users} />
+            {users && <ChatList users={users} />}
           </ScrollView>
         </SafeAreaView>
       ) : (

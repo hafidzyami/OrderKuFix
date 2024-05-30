@@ -53,6 +53,7 @@ const RegisterScreen = () => {
           alamat: "",
           deskripsi: "",
           photoURL: getAuth().currentUser!!.photoURL,
+          daftarChat : arrayUnion(null),
         });
         await setDoc(doc(getFirestore(), "menu", getAuth().currentUser!!.uid), {
           deskripsi: "",
@@ -69,6 +70,7 @@ const RegisterScreen = () => {
             telepon: getAuth().currentUser!!.phoneNumber,
             favUMKM: arrayUnion(null),
             photoURL: getAuth().currentUser!!.photoURL,
+            daftarChat : arrayUnion(null)
           }
         ).then(() => {
           alert("Berhasil daftar");

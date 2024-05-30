@@ -1,4 +1,4 @@
-import { Tabs, router } from "expo-router";
+import { Tabs, router, usePathname } from "expo-router";
 import { getAuth } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { View, Image, TouchableOpacity, StyleSheet } from "react-native";
@@ -12,6 +12,7 @@ const RootLayout = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [showActivityIndicator, setShowActivityIndicator] = useState(true);
   const startTime = Date.now();
+  const pathname = usePathname();
 
   useEffect(() => {
     getAuth().onAuthStateChanged((user) => {
@@ -49,9 +50,10 @@ const RootLayout = () => {
       screenOptions={{
         tabBarActiveTintColor: "black",
         tabBarStyle: {
-          height: 75,
+          height: pathname === "/ChatRoom" ? 0 : 75,
         },
         tabBarShowLabel: false,
+        tabBarHideOnKeyboard: true,
       }}
     >
       <Tabs.Screen
@@ -75,10 +77,24 @@ const RootLayout = () => {
           ),
         }}
       />
-      <Tabs.Screen name="Chat" options={{ unmountOnBlur: true }} />
+      <Tabs.Screen
+        name="Chat"
+        options={{
+          unmountOnBlur: true,
+          tabBarIcon: ({ color }) => (
+            <Entypo name="chat" size={32} color={color} />
+          ),
+        }}
+      />
       <Tabs.Screen
         name="(Profile)/Profile"
-        options={{ title: "Profile", unmountOnBlur: true }}
+        options={{
+          title: "Profile",
+          unmountOnBlur: true,
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="people" size={32} color={color} />
+          ),
+        }}
       />
       <Tabs.Screen
         name="(Menu)/AddMenu"

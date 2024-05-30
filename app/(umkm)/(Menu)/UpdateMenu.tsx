@@ -8,6 +8,8 @@ import {
   Switch,
   ActivityIndicator,
   TouchableOpacity,
+  KeyboardAvoidingView,
+  ScrollView,
 } from "react-native";
 import React, { useState } from "react";
 import { router, useLocalSearchParams } from "expo-router";
@@ -98,7 +100,7 @@ const EditAMenu = () => {
       const storage = getStorage();
       const storageRef = ref(
         storage,
-        `menu/${getAuth().currentUser!!.uid}/${foodName.replace(/\s/g, '')}`
+        `menu/${getAuth().currentUser!!.uid}/${foodName.replace(/\s/g, "")}`
       );
       await uploadBytes(storageRef, blob);
       const url = await getDownloadURL(storageRef);
@@ -130,8 +132,9 @@ const EditAMenu = () => {
   };
 
   return (
-    <View>
-      <View style={styles.container}>
+      <ScrollView>
+        <KeyboardAvoidingView>
+        <View style={styles.container}>
         {loadingImage && <ActivityIndicator size="large" color="#F8E800" />}
         {image !== "" ? (
           <TouchableOpacity style={styles.imagecontainer} onPress={pickImage}>
@@ -150,65 +153,65 @@ const EditAMenu = () => {
         ) : null}
         {loadingUpload && <ActivityIndicator size="large" color="#F8E800" />}
       </View>
-      <View style={{ marginTop: 250, paddingStart: 25, paddingEnd: 25 }}>
-        <View className="flex flex-col gap-y-[174px]">
-          <View className="flex flex-col gap-y-4 px-2">
-            <View>
-              <Text className="text-base">Food Name</Text>
-              <TextInput
-                placeholder="food name"
-                keyboardType="default"
-                onChangeText={(text) => setFoodName(text)}
-                value={foodName}
-                className="text-sm py-2 border-b-2 border-gray-400"
+          <View style={{paddingStart: 25, paddingEnd: 25 }}>
+            <View className="flex flex-col gap-y-[174px]">
+              <View className="flex flex-col gap-y-4 px-2">
+                <View>
+                  <Text className="text-base">Food Name</Text>
+                  <TextInput
+                    placeholder="food name"
+                    keyboardType="default"
+                    onChangeText={(text) => setFoodName(text)}
+                    value={foodName}
+                    className="text-sm py-2 border-b-2 border-gray-400"
+                  />
+                </View>
+
+                <View>
+                  <Text className="text-base">Price</Text>
+                  <View className="flex flex-row items-center border-b-2 border-gray-400">
+                    <TextInput
+                      placeholder="Rp xx.xxx"
+                      keyboardType="numeric"
+                      onChangeText={(text) => setPrice(text)}
+                      className="text-sm py-2 flex-1"
+                      value={price}
+                    />
+                  </View>
+                </View>
+                <View>
+                  <Text className="text-base">Description</Text>
+                  <View className="flex flex-row items-center border-b-2 border-gray-400">
+                    <TextInput
+                      placeholder="description"
+                      keyboardType="default"
+                      onChangeText={(text) => setDeskripsi(text)}
+                      className="text-sm py-2 flex-1"
+                      value={deskripsi}
+                    />
+                  </View>
+                </View>
+              </View>
+            </View>
+            <View className="d-flex flex-row mt-5 ml-3 justify-between">
+              <Text className="mt-1 text-base">Is Available? </Text>
+              <Switch
+                trackColor={{ false: "#767577", true: "#50C878" }}
+                thumbColor={isEnabled ? "#FFFF" : "#f4f3f4"}
+                ios_backgroundColor="#3e3e3e"
+                onValueChange={toggleSwitch}
+                value={isEnabled}
               />
             </View>
-
-            <View>
-              <Text className="text-base">Price</Text>
-              <View className="flex flex-row items-center border-b-2 border-gray-400">
-                <TextInput
-                  placeholder="Rp xx.xxx"
-                  keyboardType="numeric"
-                  onChangeText={(text) => setPrice(text)}
-                  className="text-sm py-2 flex-1"
-                  value={price}
-                />
-              </View>
-            </View>
-            <View>
-              <Text className="text-base">Description</Text>
-              <View className="flex flex-row items-center border-b-2 border-gray-400">
-                <TextInput
-                  placeholder="description"
-                  keyboardType="default"
-                  onChangeText={(text) => setDeskripsi(text)}
-                  className="text-sm py-2 flex-1"
-                  value={deskripsi}
-                />
-              </View>
-            </View>
+            <TouchableOpacity
+              onPress={saveUpdates}
+              className="bg-mainYellow py-4 flex items-center rounded-xl shadow-sm shadow-black mt-10 "
+            >
+              <Text className="text-textButton font-bold">Save Updates</Text>
+            </TouchableOpacity>
           </View>
-        </View>
-        <View className="d-flex flex-row mt-5 ml-3 justify-between">
-          <Text className="mt-1 text-base">Is Available? </Text>
-          <Switch
-            trackColor={{ false: "#767577", true: "#50C878" }}
-            thumbColor={isEnabled ? "#FFFF" : "#f4f3f4"}
-            ios_backgroundColor="#3e3e3e"
-            onValueChange={toggleSwitch}
-            value={isEnabled}
-            
-          />
-        </View>
-        <TouchableOpacity
-          onPress={saveUpdates}
-          className="bg-mainYellow py-4 flex items-center rounded-xl shadow-sm shadow-black mt-10 "
-        >
-          <Text className="text-textButton font-bold">Save Updates</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+        </KeyboardAvoidingView>
+      </ScrollView>
   );
 };
 

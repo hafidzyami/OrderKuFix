@@ -13,7 +13,7 @@ const CustomerHome = () => {
         className="bg-yellow-200 rounded-b-xl relative h-64 shadow-sm shadow-black"
       >
         <Text
-          style={{ fontFamily: "Montserrat_700Bold" }}
+          // style={{ fontFamily: "Montserrat_700Bold" }}
           className="z-10 mt-36 mx-6 absolute font-extrabold text-4xl"
         >
           Welcome,{"\n"}
