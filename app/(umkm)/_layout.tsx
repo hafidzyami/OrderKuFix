@@ -195,6 +195,22 @@ const RootLayout = () => {
         name="ChatRoom"
         options={{ href: null, unmountOnBlur: true }}
       />
+       <Tabs.Screen
+        name="underMaintenance"
+        options={{
+          href: null,
+          title: "Under Maintenance",
+          unmountOnBlur: true,
+          headerStyle: styles.headerStyle,
+          headerLeft: () => (
+            <View className="ml-3">
+              <TouchableOpacity>
+                <Ionicons name="chevron-back" size={24} color="black" />
+              </TouchableOpacity>
+            </View>
+          ),
+        }}
+      />
     </Tabs>
   );
 };
