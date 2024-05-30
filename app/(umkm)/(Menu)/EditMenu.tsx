@@ -44,6 +44,7 @@ const EditMenu = () => {
   const renderMenuCard = ({ item }: { item: any }) => (
     <TouchableOpacity
       onPress={() => router.push({ pathname: `./UpdateMenu`, params: item })}
+      
     >
       <View className="flex border-gray-400 border-t-[1px]">
         <View className="flex flex-row rounded-lg my-5 mx-5">
@@ -82,9 +83,9 @@ const EditMenu = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} className="bg-white h-full">
       {loading ? (
-        <ActivityIndicator size="large" color="#F8E800" />
+        <ActivityIndicator size={64} color="#F8E800" className="flex items-center justify-center h-full"/>
       ) : (
         <SafeAreaView>
           <ScrollView
@@ -100,7 +101,7 @@ const EditMenu = () => {
               scrollEnabled={false}
             />
           </ScrollView>
-          <View style={{ marginBottom: 10 }}>
+          <View style={{ marginBottom: 10, marginTop: 10 }} className="mx-4">
             <ButtonCustom
               onPress={() => router.replace("/AddMenu")}
               title="Add New Menu"

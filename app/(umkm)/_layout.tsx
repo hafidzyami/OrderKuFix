@@ -50,7 +50,15 @@ const RootLayout = () => {
       screenOptions={{
         tabBarActiveTintColor: "black",
         tabBarStyle: {
-          height: pathname === "/ChatRoom" || pathname === "/underMaintenance"? 0 : 75,
+          height:
+            pathname === "/ChatRoom" ||
+            pathname === "/underMaintenance" ||
+            pathname === "/DetailOrder" ||
+            pathname === "/UpdateMenu" ||
+            pathname === "/EditProfile" ||
+            pathname === "/TotalPendapatan"
+              ? 0
+              : 75,
         },
         tabBarShowLabel: false,
         tabBarHideOnKeyboard: true,
@@ -72,6 +80,8 @@ const RootLayout = () => {
         options={{
           title: "Orders",
           unmountOnBlur: true,
+          headerTitleAlign: "center",
+          headerStyle: styles.headerStyle,
           tabBarIcon: ({ color }) => (
             <FontAwesome name="list-ul" size={32} color={color} />
           ),
@@ -91,6 +101,9 @@ const RootLayout = () => {
         options={{
           title: "Profile",
           unmountOnBlur: true,
+          headerTitleAlign: "center",
+          headerStyle: styles.headerStyle,
+
           tabBarIcon: ({ color }) => (
             <Ionicons name="people" size={32} color={color} />
           ),
@@ -118,10 +131,11 @@ const RootLayout = () => {
           href: null,
           unmountOnBlur: true,
           title: "Edit Menu",
+          headerTitleAlign: "center",
           headerStyle: styles.headerStyle,
           headerLeft: () => (
             <View className="ml-3">
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => router.back()}>
                 <Ionicons name="chevron-back" size={24} color="black" />
               </TouchableOpacity>
             </View>
@@ -134,10 +148,11 @@ const RootLayout = () => {
           href: null,
           title: "Total Pendapatan",
           unmountOnBlur: true,
+          headerTitleAlign: "center",
           headerStyle: styles.headerStyle,
           headerLeft: () => (
             <View className="ml-3">
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => router.back()}>
                 <Ionicons name="chevron-back" size={24} color="black" />
               </TouchableOpacity>
             </View>
@@ -149,10 +164,11 @@ const RootLayout = () => {
         options={{
           href: null,
           title: "Edit Profile",
+          headerTitleAlign: "center",
           headerStyle: styles.headerStyle,
           headerLeft: () => (
             <View className="ml-3">
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => router.replace("./Profile")}>
                 <Ionicons name="chevron-back" size={24} color="black" />
               </TouchableOpacity>
             </View>
@@ -165,10 +181,11 @@ const RootLayout = () => {
           href: null,
           unmountOnBlur: true,
           title: "Update Menu",
+          headerTitleAlign: "center",
           headerStyle: styles.headerStyle,
           headerLeft: () => (
             <View className="ml-3">
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => router.replace("./EditMenu")}>
                 <Ionicons name="chevron-back" size={24} color="black" />
               </TouchableOpacity>
             </View>
@@ -181,10 +198,11 @@ const RootLayout = () => {
           href: null,
           unmountOnBlur: true,
           title: "Detail Order",
+          headerTitleAlign: "center",
           headerStyle: styles.headerStyle,
           headerLeft: () => (
             <View className="ml-3">
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => router.replace("./ListOrders")}>
                 <Ionicons name="chevron-back" size={24} color="black" />
               </TouchableOpacity>
             </View>
@@ -195,7 +213,7 @@ const RootLayout = () => {
         name="ChatRoom"
         options={{ href: null, unmountOnBlur: true }}
       />
-       <Tabs.Screen
+      <Tabs.Screen
         name="underMaintenance"
         options={{
           href: null,

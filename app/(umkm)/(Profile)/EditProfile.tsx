@@ -63,15 +63,23 @@ export default function EditProfileUMKM() {
   };
 
   return (
-    <View style={styles.container}>
-      <Button title="Pick an image from camera roll" onPress={pickImage} />
-      <Image
-        style={styles.image}
-        source={{
-          uri: image !== "" ? image : getAuth().currentUser?.photoURL || "",
-        }}
-      />
-      <Button title="Save Changes" onPress={saveUpdates} />
+    <View className="bg-white h-full flex p-6 jusitify-center">
+      <View className="flex justify-center items-center">
+        <Image
+          style={styles.image}
+          source={{
+            uri: image !== "" ? image : getAuth().currentUser?.photoURL || "",
+          }}
+        />
+      </View>
+
+      <View className="mb-8">
+        <Button title="Pick an image from camera roll" onPress={pickImage} />
+      </View>
+
+      <View>
+        <Button title="Save Changes" onPress={saveUpdates} />
+      </View>
     </View>
   );
 }

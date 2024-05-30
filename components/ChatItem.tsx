@@ -60,24 +60,25 @@ const ChatItem = (user: any) => {
   };
   return (
     <TouchableOpacity
-      className="flex flex-row justify-between mx-4 item-centers gap-3 pb-2"
+      className="flex flex-row justify-between mx-4 item-centers gap-3 pb-2 mb-2"
       onPress={() => router.push({ pathname: "./ChatRoom", params: user.user })}
     >
       <Image
         source={{ uri: user.user.photoURL }}
-        height={80}
-        width={80}
+        height={65}
+        width={65}
         borderRadius={50}
       />
-      <View className="flex-1 gap-1">
+      <View className="flex flex-row justify-between">
         <View>
           <Text className="font-bold text-base mb-1">{user.user.nama}</Text>
           <Text>{renderLastMessage()}</Text>
         </View>
-      </View>
-      <View className="flex-1 gap-2">
+        <View className="flex pl-4">
         <Text className="">{renderLastTime()}</Text>
       </View>
+      </View>
+      
     </TouchableOpacity>
   );
 };

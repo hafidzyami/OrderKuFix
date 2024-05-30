@@ -85,7 +85,7 @@ const TotalPendapatan = () => {
     setRefreshing(false);
   };
   return (
-    <View style={styles.container}>
+    <View style={styles.container} className="bg-white h-full">
       {loading ? (
         <ActivityIndicator size="large" color="#F8E800" />
       ) : (

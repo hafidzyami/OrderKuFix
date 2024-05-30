@@ -132,7 +132,7 @@ const EditAMenu = () => {
   };
 
   return (
-      <ScrollView>
+      <ScrollView className="bg-white h-full">
         <KeyboardAvoidingView>
         <View style={styles.container}>
         {loadingImage && <ActivityIndicator size="large" color="#F8E800" />}
@@ -205,7 +205,7 @@ const EditAMenu = () => {
             </View>
             <TouchableOpacity
               onPress={saveUpdates}
-              className="bg-mainYellow py-4 flex items-center rounded-xl shadow-sm shadow-black mt-10 "
+              className="bg-mainYellow py-4 flex items-center rounded-xl shadow-sm shadow-black mt-10 mb-6"
             >
               <Text className="text-textButton font-bold">Save Updates</Text>
             </TouchableOpacity>

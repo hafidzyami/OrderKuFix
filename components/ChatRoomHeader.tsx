@@ -12,7 +12,7 @@ const ChatRoomHeader = ({ user, router }: any) => {
         headerShadowVisible: false,
         headerLeft: () => (
           <View className="flex flex-row items-center">
-            <TouchableOpacity onPress={() => router.back()} className="mx-3">
+            <TouchableOpacity onPress={() => router.replace("./Chat")} className="mx-3">
               <Ionicons name="chevron-back" size={24} color="black" />
             </TouchableOpacity>
 

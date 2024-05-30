@@ -7,7 +7,7 @@ import { router } from "expo-router";
 
 const CustomerHome = () => {
   return (
-    <View>
+    <View className="bg-white h-full">
       <LinearGradient
         colors={["#fffab3", "#FFF676", "#F8E800"]}
         className="bg-yellow-200 rounded-b-xl relative h-64 shadow-sm shadow-black"

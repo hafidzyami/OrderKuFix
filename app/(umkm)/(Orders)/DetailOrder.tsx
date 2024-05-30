@@ -134,8 +134,8 @@ const DetailOrder = () => {
   const renderOrderItem = (item: any) => {
     return (
       <View>
-        <View className="flex border-gray-400 border-t-[1px]">
-          <View className="flex flex-row rounded-lg my-5 mx-5">
+        <View className="flex border-gray-400 border-t-[1px] p-4">
+          <View className="flex flex-row rounded-lg">
             <Image
               width={90}
               height={90}
@@ -161,7 +161,7 @@ const DetailOrder = () => {
   };
 
   return (
-    <ScrollView>
+    <ScrollView className="bg-white h-full">
       <SafeAreaView>
         <ScrollView>
           <FlatList

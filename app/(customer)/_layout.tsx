@@ -57,7 +57,8 @@ const RootLayout = () => {
               pathname === "/ChatRoom" ||
               pathname === "/ListMenu" ||
               pathname === "/Checkout" ||
-              pathname === "/DetailOrder"
+              pathname === "/DetailOrder" ||
+              pathname === "/EditProfile"
                 ? 0
                 : 75,
           },
@@ -98,7 +99,10 @@ const RootLayout = () => {
             headerShown: true,
 
             headerLeft: () => (
-              <TouchableOpacity onPress={() => router.replace("./ListOrders")} className="ml-5">
+              <TouchableOpacity
+                onPress={() => router.replace("./ListOrders")}
+                className="ml-5"
+              >
                 <Ionicons name="chevron-back" size={24} color="black" />
               </TouchableOpacity>
             ),
@@ -128,7 +132,18 @@ const RootLayout = () => {
         />
         <Tabs.Screen
           name="(Profile)/EditProfile"
-          options={{ href: null, unmountOnBlur: true }}
+          options={{
+            headerTitleAlign: "center",
+            headerStyle: styles.headerStyle,
+            href: null,
+            unmountOnBlur: true,
+            title: "Edit Profile",
+            headerLeft: () => (
+              <TouchableOpacity onPress={() => router.back()} className="ml-5">
+                <Ionicons name="chevron-back" size={24} color="black" />
+              </TouchableOpacity>
+            ),
+          }}
         />
         <Tabs.Screen
           name="(UMKM)/ListUMKM"

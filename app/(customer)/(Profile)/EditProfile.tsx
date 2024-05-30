@@ -17,7 +17,9 @@ export default function ImagePickerExample() {
   const [image, setImage] = useState<string>("");
 
   const saveUpdates = async () => {
-    uploadImage(image).then(() => router.replace("/Profile")).then(() => alert("Update Changes!"))
+    uploadImage(image)
+      .then(() => router.replace("/Profile"))
+      .then(() => alert("Update Changes!"));
   };
 
   const pickImage = async () => {
@@ -43,33 +45,38 @@ export default function ImagePickerExample() {
         storage,
         `profile/${getAuth().currentUser!!.uid}/${Date.now()}`
       );
-      await uploadBytes(storageRef, blob)
-      await getDownloadURL(storageRef).then((url) => updateProfile(getAuth().currentUser!!, {photoURL : url}));
+      await uploadBytes(storageRef, blob);
+      await getDownloadURL(storageRef).then((url) =>
+        updateProfile(getAuth().currentUser!!, { photoURL: url })
+      );
     } catch (error) {
       alert("Upload Error");
     }
   };
 
   return (
-    <View style={styles.container}>
-      <Button title="Pick an image from camera roll" onPress={pickImage} />
-      <Image
-        style={styles.image}
-        source={{
-          uri: image !== "" ? image : getAuth().currentUser?.photoURL || "",
-        }}
-      />
-      <Button title="Save Changes" onPress={saveUpdates} />
+    <View className="bg-white h-full flex justify-start p-6">
+      <View className="flex items-center">
+        <Image
+          style={styles.image}
+          source={{
+            uri: image !== "" ? image : getAuth().currentUser?.photoURL || "",
+          }}
+        />
+      </View>
+
+      <View className="mb-8">
+        <Button title="Pick an image from camera roll" onPress={pickImage} />
+      </View>
+
+      <View>
+        <Button title="Save Changes" onPress={saveUpdates} />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
   image: {
     width: 150,
     height: 150,
