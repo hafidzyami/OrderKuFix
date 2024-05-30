@@ -67,15 +67,15 @@ const chat = () => {
   }, []);
 
   return (
-    <View>
+    <View className="ml-6">
+      <Text className="font-bold text-lg mb-3 mt-5"> Daftar UMKM : </Text>
       {users ? (
-        <SafeAreaView>
+        <SafeAreaView style={{ marginTop : -40 }}>
           <ScrollView
             refreshControl={
               <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             }
           >
-            <Text> Daftar UMKM : </Text>
             {users && <ChatList users={users} />}
           </ScrollView>
         </SafeAreaView>

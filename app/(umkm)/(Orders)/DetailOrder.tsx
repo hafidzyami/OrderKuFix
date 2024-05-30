@@ -162,9 +162,6 @@ const DetailOrder = () => {
 
   return (
     <ScrollView>
-      <Text style={{ color: timeStampFinish === "" ? "orange" : "green" }}>
-        {timeStampFinish === "" ? "Ongoing" : "Complete"}
-      </Text>
       <SafeAreaView>
         <ScrollView>
           <FlatList
@@ -176,8 +173,21 @@ const DetailOrder = () => {
             scrollEnabled={false}
           />
         </ScrollView>
-        <Text>Payment</Text>
-        <Text>Rp {formatRupiah(sumOfPrice)}</Text>
+        <View className="d-flex flex-row justify-between px-5">
+          <View>
+            <Text className="font-bold text-base">Payment</Text>
+            <Text className="text-md">Rp {formatRupiah(sumOfPrice)}</Text>
+          </View>
+          <View>
+            <Text className="font-bold text-base">Status</Text>
+            <Text
+              style={{ color: timeStampFinish === "" ? "orange" : "green" }}
+            >
+              {timeStampFinish === "" ? "Ongoing" : "Complete"}
+            </Text>
+          </View>
+        </View>
+
         {loadingUpdate && <ActivityIndicator size="large" />}
         {timeStampFinish === "" ? (
           <Button title="Mark as Complete" onPress={markAsComplete}></Button>

@@ -76,6 +76,7 @@ const CustomerHome = () => {
           width : 360,
           marginLeft : 30
         }}
+        onPress={() => router.replace("./TotalPendapatan")}
       >
         <View className="d-flex flex-row items-center">
           <Image
