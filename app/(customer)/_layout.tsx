@@ -52,7 +52,7 @@ const RootLayout = () => {
         screenOptions={{
           tabBarActiveTintColor: "black",
           tabBarStyle: {
-            height: pathname === "/ChatRoom" || pathname === "(UMKM)/ListMenu" ? 0 : 75,
+            height: pathname === "/ChatRoom" || pathname === "/(UMKM)/ListMenu" ? 0 : 75,
           },
           tabBarShowLabel: false,
         }}
@@ -123,7 +123,7 @@ const RootLayout = () => {
         />
         <Tabs.Screen
           name="(UMKM)/ListMenu"
-          options={{ href: null, unmountOnBlur: true, headerShown: false }}
+          options={{ title: "list menu", href: null, unmountOnBlur: true, headerShown: false }}
         />
         <Tabs.Screen
           name="(UMKM)/Checkout"
