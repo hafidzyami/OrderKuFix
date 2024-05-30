@@ -180,11 +180,12 @@ const Checkout = () => {
 
   const renderMenuItem = ({ item }: any) => {
     return (
-      <View className="flex  ">
+      <View>
         <View className="flex py-3 px-4 flex-row bg-white">
           {loadingImage && (
             <ActivityIndicator size={60} color="#F8E800" className="mt-12" />
           )}
+          <View></View>
           <Image
             source={{ uri: formatImageURL(item.imageURL) }}
             onLoadStart={() => setLoadingImage(true)}
@@ -231,18 +232,21 @@ const Checkout = () => {
         </View>
       </View>
       <Text className="font-bold text-lg mx-4 mt-4 mb-2">Item</Text>
-      <SafeAreaView>
-        <ScrollView>
-          <FlatList
-            key={"#"}
-            data={cart}
-            renderItem={renderMenuItem}
-            keyExtractor={(item) => item.idMenu}
-            nestedScrollEnabled={true}
-            scrollEnabled={false}
-          />
-        </ScrollView>
-      </SafeAreaView>
+      <View>
+        <SafeAreaView>
+          <ScrollView>
+            <FlatList
+              key={"#"}
+              data={cart}
+              renderItem={renderMenuItem}
+              keyExtractor={(item) => item.idMenu}
+              nestedScrollEnabled={true}
+              scrollEnabled={false}
+            />
+          </ScrollView>
+        </SafeAreaView>
+      </View>
+
       <View className="mx-4 mb-5">
         <Text className="font-bold text-lg my-2">Payment</Text>
         <View className="border-[1px] p-4 rounded-lg flex flex-row justify-between items-end border-gray-300">
@@ -263,7 +267,10 @@ const Checkout = () => {
 
       {loadingOrder && <ActivityIndicator size={32} color="#F8E800" />}
       <View className="mb-12 mx-4">
-        <Pressable onPress={() => handleOrder(cart)} className="bg-mainYellow  p-4 flex items-center mt-1 rounded-lg shadow-sm shadow-black">
+        <Pressable
+          onPress={() => handleOrder(cart)}
+          className="bg-mainYellow  p-4 flex items-center mt-1 rounded-lg shadow-sm shadow-black"
+        >
           <Text className="text-lg font-bold">Order and Pickup</Text>
         </Pressable>
       </View>

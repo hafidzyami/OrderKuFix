@@ -25,22 +25,27 @@ const DetailOrder = () => {
 
   const renderOrderItem = (item: any) => {
     return (
-      <View style={{ marginBottom: 50 }}>
-        <View style={{ flexDirection: "row" }}>
-          {loadingImage && <ActivityIndicator size="large" color="#F8E800" />}
-          <Image
-            source={{ uri: formatImageURL(item.item.imageURL) }}
-            style={{ height: 100, width: 100, marginRight: 20 }}
-            onLoadStart={() => setLoadingImage(true)}
-            onLoadEnd={() => setLoadingImage(false)}
-          />
-          <View style={{ flexDirection: "column" }}>
-            <Text>{item.item.namaMenu}</Text>
-            <Text>Rp {formatRupiah(item.item.price)} / pcs</Text>
-            <Text>Kuntitas : {item.item.quantity}</Text>
-            <Text>
-              Total : {formatRupiah(item.item.quantity * item.item.price)}
-            </Text>
+      <View>
+        <View className="flex border-gray-400 border-t-[1px] p-4">
+          <View className="flex flex-row rounded-lg">
+            <Image
+              width={90}
+              height={90}
+              borderRadius={8}
+              source={{ uri: formatImageURL(item.item.imageURL) }}
+              onLoadStart={() => setLoadingImage(true)}
+              onLoadEnd={() => setLoadingImage(false)}
+            />
+            <View className="flex flex-row ml-4 justify-between w-[55%]">
+              <View className="">
+                <Text>Name : {item.item.namaMenu}</Text>
+                <Text>Price : Rp {formatRupiah(item.item.price)} / pcs</Text>
+                <Text>Kuntitas : {item.item.quantity}</Text>
+                <Text>
+                  Total : {formatRupiah(item.item.quantity * item.item.price)}
+                </Text>
+              </View>
+            </View>
           </View>
         </View>
       </View>
@@ -49,7 +54,7 @@ const DetailOrder = () => {
 
   return (
     <View className="bg-white h-full">
-      <Text style={{ color : timeStampFinish === "" ? "orange" : "green" }}>{timeStampFinish === "" ? "Ongoing" : "Complete"}</Text>
+      <Text className="p-4 font-semibold text-base text-center" style={{ color : timeStampFinish === "" ? "orange" : "green" }}>{timeStampFinish === "" ? "Ongoing" : "Complete"}</Text>
       <SafeAreaView>
         <ScrollView>
           <FlatList
