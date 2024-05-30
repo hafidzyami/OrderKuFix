@@ -52,38 +52,39 @@ const DetailOrder = () => {
   const markAsComplete = async () => {
     setLoadingUpdate(true);
     try {
-      await updateDoc(
-        doc(getFirestore(), "orderumkm", getAuth().currentUser!!.uid),
-        {
-          orders: arrayRemove(orderItem),
-        }
-      );
-      await updateDoc(
-        doc(getFirestore(), "ordercustomer", orderItem.idCustomer),
-        {
-          orders: arrayRemove(customerOrder),
-        }
-      );
-      orderItem.timeStampFinish = getCurrentTimestamp()
-      customerOrder.timeStampFinish = getCurrentTimestamp()
-      await updateDoc(
-        doc(getFirestore(), "orderumkm", getAuth().currentUser!!.uid),
-        {
-          orders: arrayUnion(orderItem),
-        }
-      );
-      await updateDoc(
-        doc(getFirestore(), "ordercustomer", orderItem.idCustomer),
-        {
-          orders: arrayUnion(customerOrder),
-        }
-      );
+      console.log(orderItem)
+      // await updateDoc(
+      //   doc(getFirestore(), "orderumkm", getAuth().currentUser!!.uid),
+      //   {
+      //     orders: arrayRemove(orderItem),
+      //   }
+      // );
+      // await updateDoc(
+      //   doc(getFirestore(), "ordercustomer", orderItem.idCustomer),
+      //   {
+      //     orders: arrayRemove(customerOrder),
+      //   }
+      // );
+      // orderItem.timeStampFinish = getCurrentTimestamp()
+      // customerOrder.timeStampFinish = getCurrentTimestamp()
+      // await updateDoc(
+      //   doc(getFirestore(), "orderumkm", getAuth().currentUser!!.uid),
+      //   {
+      //     orders: arrayUnion(orderItem),
+      //   }
+      // );
+      // await updateDoc(
+      //   doc(getFirestore(), "ordercustomer", orderItem.idCustomer),
+      //   {
+      //     orders: arrayUnion(customerOrder),
+      //   }
+      // );
     } catch (error) {
       alert(error);
     }finally{
         setLoadingUpdate(false);
         alert("Berhasil menyelesaikan pesanan!")
-        router.replace("..(Orders)/ListOrders")
+        router.replace("./ListOrders")
     }
   };
 

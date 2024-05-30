@@ -13,15 +13,10 @@ import {
 import React, { useEffect, useState } from "react";
 import { ButtonCustom } from "@/components/Button";
 import { router } from "expo-router";
-import {
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  getFirestore,
-} from "firebase/firestore";
+import { doc, getDoc, getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import formatRupiah from "@/functions/formatRupiah";
+import { Feather } from "@expo/vector-icons";
 
 const EditMenu = () => {
   const [menu, setMenu] = useState<any>();
@@ -50,19 +45,32 @@ const EditMenu = () => {
     <TouchableOpacity
       onPress={() => router.push({ pathname: `./UpdateMenu`, params: item })}
     >
-      <View style={styles.card}>
-        {loadingImage && <ActivityIndicator size="large" color="#F8E800" />}
-        <Image
-          style={styles.image}
-          source={{ uri: item.imageURL }}
-          onLoadStart={() => setLoadingImage(true)}
-          onLoadEnd={() => setLoadingImage(false)}
-        />
-        <Text style={styles.name}>{item.foodName}</Text>
-        <Text style={styles.name}>
-          {item.isAvailable ? "Available" : "Out of Stock"}
-        </Text>
-        <Text style={styles.name}>Rp {formatRupiah(item.price)}</Text>
+      <View className="flex border-gray-400 border-t-[1px]">
+        <View className="flex flex-row rounded-lg my-5 mx-5">
+          <Image
+            width={90}
+            height={90}
+            borderRadius={8}
+            source={{ uri: item.imageURL || "" }}
+            onLoadStart={() => setLoadingImage(true)}
+            onLoadEnd={() => setLoadingImage(false)}
+          />
+          <View className="flex flex-row ml-4 justify-between w-[55%]">
+            <View className="">
+              <Text className="text-lg font-bold">{item.foodName}</Text>
+              <Text className="text-sm">Rp {formatRupiah(item.price)}</Text>
+              <Text className="text-sm">{item.deskripsi}</Text>
+            </View>
+          </View>
+          <View className="mt-1">
+            <Text style={{ color: item.isAvailable ? "green" : "red" }}>
+              {item.isAvailable ? "Available" : "Out of\nStock"}
+            </Text>
+            <View className="mt-1">
+              <Feather name="edit" size={24} color="black" />
+            </View>
+          </View>
+        </View>
       </View>
     </TouchableOpacity>
   );
@@ -92,12 +100,14 @@ const EditMenu = () => {
               scrollEnabled={false}
             />
           </ScrollView>
-          <ButtonCustom
-            onPress={() => router.replace("/AddMenu")}
-            title="Add Menu"
-            color="#F8E800"
-            opacity={1}
-          ></ButtonCustom>
+          <View style={{ marginBottom: 20 }}>
+            <ButtonCustom
+              onPress={() => router.replace("/AddMenu")}
+              title="Add New Menu"
+              color="#F8E800"
+              opacity={1}
+            ></ButtonCustom>
+          </View>
         </SafeAreaView>
       )}
     </View>
