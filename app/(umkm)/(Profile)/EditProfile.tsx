@@ -20,7 +20,7 @@ export default function EditProfileUMKM() {
 
   const saveUpdates = async () => {
     uploadImage(image)
-      .then(() => router.replace("/Profile"))
+      .then(() => router.replace("./Profile"))
       .then(() => alert("Update Changes!"));
   };
 

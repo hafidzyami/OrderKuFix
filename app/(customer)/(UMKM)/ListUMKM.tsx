@@ -125,7 +125,7 @@ const ListUMKM = () => {
   return (
     <View className="bg-white flex-1">
       {loading ? (
-        <ActivityIndicator size={60} color="#F8E800" className="flex justify-center items-center h-full"/>
+        <ActivityIndicator size="large" color="#F8E800" />
       ) : (
         <View>
           <ScrollView>
