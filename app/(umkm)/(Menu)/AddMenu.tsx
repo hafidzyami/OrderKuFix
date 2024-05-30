@@ -15,6 +15,7 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { getAuth } from "firebase/auth";
 import { arrayUnion, doc, getFirestore, updateDoc } from "firebase/firestore";
 import { MaterialIcons } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 
 interface MenuItem {
   idMenu: string;
@@ -99,15 +100,29 @@ const AddMenu = () => {
     <View>
       <View style={styles.container}>
         <TouchableOpacity style={styles.imagecontainer} onPress={pickImage}>
-          <View
-            style={styles.image}
-            className="border-2 justify-center items-center"
-          >
-            <Text className="text-base">Add Image</Text>
-            <View style={styles.iconWrapper}>
-              <MaterialIcons name="add-a-photo" size={24} color="white" />
+          {image !== "" ? (
+            <View>
+              <Image
+                style={styles.image}
+                source={{
+                  uri: image,
+                }}
+              />
+              <View style={styles.iconWrapper}>
+                <Entypo name="camera" size={24} color="white" />
+              </View>
             </View>
-          </View>
+          ) : (
+            <View
+              style={styles.image}
+              className="border-2 justify-center items-center"
+            >
+              <Text className="text-base">Add Image</Text>
+              <View style={styles.iconWrapper}>
+                <MaterialIcons name="add-a-photo" size={24} color="white" />
+              </View>
+            </View>
+          )}
         </TouchableOpacity>
         {loadingUpload && <ActivityIndicator size="large" color="#F8E800" />}
       </View>
@@ -131,7 +146,7 @@ const AddMenu = () => {
                 <TextInput
                   placeholder="Rp xx.xxx"
                   keyboardType="numeric"
-                  onChangeText={(text) => setPrice(text)}
+                  onChangeText={(text) => handlePrice(text)}
                   className="text-sm py-2 flex-1"
                 />
               </View>
@@ -168,14 +183,14 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "100%",
-    height: "100%",
+    height: "90%",
     marginBottom: 50,
     borderRadius: 10,
   },
   iconWrapper: {
     position: "absolute",
-    bottom: 10, // Adjust the distance from the bottom as needed
-    right: 10, // Adjust the distance from the right as needed
+    bottom: 30, // Adjust the distance from the bottom as needed
+    right: 5, // Adjust the distance from the right as needed
     backgroundColor: "rgba(0, 0, 0, 0.5)", // Semi-transparent black background
     borderRadius: 12, // Optional: add border radius to the wrapper
     padding: 5, // Add padding to ensure the icon is not touching the edges
