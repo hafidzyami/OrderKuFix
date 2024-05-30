@@ -132,7 +132,7 @@ const MyOrderScreen = () => {
 
   console.log(orders)
   return (
-    <View>
+    <View className="bg-white h-full">
       {loading ? (
         <ActivityIndicator size="large" color="#F8E800" />
       ) : (

@@ -8,6 +8,7 @@ import {
   ActivityIndicator,
   Button,
   Alert,
+  Pressable,
 } from "react-native";
 import React, { useState } from "react";
 import { router, useLocalSearchParams } from "expo-router";
@@ -23,6 +24,7 @@ import {
 } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import getCurrentTimestamp from "@/functions/getCurrentTimestamp";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const Checkout = () => {
   const params = useLocalSearchParams();
@@ -100,7 +102,11 @@ const Checkout = () => {
         });
       }
       await updateDoc(
-        doc(getFirestore(), "umkm", typeof params.idUMKM === "string" ? params.idUMKM : ""),
+        doc(
+          getFirestore(),
+          "umkm",
+          typeof params.idUMKM === "string" ? params.idUMKM : ""
+        ),
         {
           daftarChat: arrayUnion(getAuth().currentUser!!.uid),
         }
@@ -108,7 +114,9 @@ const Checkout = () => {
       await updateDoc(
         doc(getFirestore(), "customer", getAuth().currentUser!!.uid),
         {
-          daftarChat: arrayUnion(typeof params.idUMKM === "string" ? params.idUMKM : ""),
+          daftarChat: arrayUnion(
+            typeof params.idUMKM === "string" ? params.idUMKM : ""
+          ),
         }
       );
     } catch (error) {
@@ -172,23 +180,38 @@ const Checkout = () => {
 
   const renderMenuItem = ({ item }: any) => {
     return (
-      <View style={{ marginBottom: 50 }}>
-        <View style={{ flexDirection: "row" }}>
-          {loadingImage && <ActivityIndicator size="large" color="#F8E800" />}
+      <View className="flex  ">
+        <View className="flex py-3 px-4 flex-row bg-white">
+          {loadingImage && (
+            <ActivityIndicator size={60} color="#F8E800" className="mt-12" />
+          )}
           <Image
             source={{ uri: formatImageURL(item.imageURL) }}
-            style={{ height: 100, width: 100, marginRight: 20 }}
             onLoadStart={() => setLoadingImage(true)}
             onLoadEnd={() => setLoadingImage(false)}
+            className="rounded-lg shadow-sm shadow-black"
+            width={120}
+            height={100}
           />
-          <View style={{ flexDirection: "column" }}>
-            <Text>{item.namaMenu}</Text>
-            <Text>Rp {formatRupiah(item.price)}</Text>
-          </View>
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <Button title="-" onPress={() => handleKurangMenu(item)} />
-            <Text>{item.quantity}</Text>
-            <Button title="+" onPress={() => handleTambahMenu(item)} />
+          <View className="ml-4 flex flex-row justify-between w-3/5 ">
+            <View className="mr-4">
+              <Text className="font-bold text-lg">{item.namaMenu}</Text>
+              <Text>Rp {formatRupiah(item.price)}</Text>
+            </View>
+
+            <View className="flex flex-row items-center mt-10">
+              <Pressable onPress={() => handleKurangMenu(item)}>
+                <Text className="text-xl font-bold bg-mainYellow px-3 rounded-full">
+                  -
+                </Text>
+              </Pressable>
+              <Text className="mx-3">{item.quantity}</Text>
+              <Pressable onPress={() => handleTambahMenu(item)}>
+                <Text className="text-lg bg-mainYellow px-3 rounded-full">
+                  +
+                </Text>
+              </Pressable>
+            </View>
           </View>
         </View>
       </View>
@@ -202,13 +225,12 @@ const Checkout = () => {
           source={require("./pickupBag.png")}
           className="w-16 h-16"
         ></Image>
-        <View className="ml-4">
+        <View className="ml-4 flex justify-between mb-4">
           <Text className="font-bold text-lg">Pickup</Text>
-          <Text>30-60 minutes</Text>
+          <Text className="font-semibold text-gray-500">30-60 minutes</Text>
         </View>
       </View>
-      <Text>Item</Text>
-      <Text>Checkout</Text>
+      <Text className="font-bold text-lg mx-4 mt-4 mb-2">Item</Text>
       <SafeAreaView>
         <ScrollView>
           <FlatList
@@ -221,13 +243,30 @@ const Checkout = () => {
           />
         </ScrollView>
       </SafeAreaView>
-      <Text>Payment</Text>
-      <Text>Rp {formatRupiah(calculatePrice())}</Text>
-      {loadingOrder && <ActivityIndicator size="large" color="#F8E800" />}
-      <Button
-        title="Order and Pickup"
-        onPress={() => handleOrder(cart)}
-      ></Button>
+      <View className="mx-4 mb-5">
+        <Text className="font-bold text-lg my-2">Payment</Text>
+        <View className="border-[1px] p-4 rounded-lg flex flex-row justify-between items-end border-gray-300">
+          <Text className="text-base">Total Payment</Text>
+          <Text className="font-bold text-lg">
+            Rp {formatRupiah(calculatePrice())}
+          </Text>
+        </View>
+      </View>
+
+      <View className="mx-4 mb-8">
+        <Text className="font-bold text-lg my-2">Payment Method</Text>
+        <View className="border-[1px] p-4 rounded-lg flex flex-row justify-between items-end border-gray-300">
+          <MaterialCommunityIcons name="cash" size={28} color="black" />
+          <Text className="font-bold text-lg">Cash</Text>
+        </View>
+      </View>
+
+      {loadingOrder && <ActivityIndicator size={32} color="#F8E800" />}
+      <View className="mb-12 mx-4">
+        <Pressable onPress={() => handleOrder(cart)} className="bg-mainYellow  p-4 flex items-center mt-1 rounded-lg shadow-sm shadow-black">
+          <Text className="text-lg font-bold">Order and Pickup</Text>
+        </Pressable>
+      </View>
     </ScrollView>
   );
 };

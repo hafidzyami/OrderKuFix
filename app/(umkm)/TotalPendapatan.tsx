@@ -3,7 +3,7 @@ import React from 'react'
 
 const TotalPendapatan = () => {
   return (
-    <View >
+    <View>
       <Text>TotalPendapatan</Text>
     </View>
   )

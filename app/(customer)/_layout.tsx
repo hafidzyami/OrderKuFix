@@ -10,6 +10,7 @@ import "react-native-reanimated";
 const RootLayout = () => {
   const [isLoading, setIsLoading] = useState(true);
   const pathname = usePathname(); // Get current path
+
   useEffect(() => {
     const auth = getAuth();
     const startTime = Date.now();
@@ -33,27 +34,30 @@ const RootLayout = () => {
     return () => unsubscribe();
   }, []);
 
-  if (isLoading)
+  if (isLoading) {
     return (
       <View
         style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
         className="bg-white"
       >
-        {/* <ActivityIndicator size="large" color="#ffffff" /> */}
         <Image
           source={require("./assets-customer/loading.gif")}
           style={{ width: 250, height: 250 }}
         />
       </View>
     );
-  else {
+  } else {
+    // Regular expression to match dynamic route for UMKM ListMenu
     return (
       <Tabs
         screenOptions={{
           tabBarActiveTintColor: "black",
           tabBarStyle: {
             height:
-              pathname === "/ChatRoom" || pathname === "/(UMKM)/ListMenu"
+              pathname === "/ChatRoom" ||
+              pathname === "/ListMenu" ||
+              pathname === "/Checkout" ||
+              pathname === "/DetailOrder"
                 ? 0
                 : 75,
           },
@@ -64,7 +68,6 @@ const RootLayout = () => {
           name="index"
           options={{
             title: "Home",
-
             unmountOnBlur: true,
             tabBarIcon: ({ color }) => (
               <Entypo name="home" size={32} color={color} />
@@ -77,6 +80,8 @@ const RootLayout = () => {
           options={{
             title: "Orders",
             unmountOnBlur: true,
+            headerTitleAlign: "center",
+            headerStyle: styles.headerStyle,
             tabBarIcon: ({ color }) => (
               <Ionicons name="newspaper" size={32} color={color} />
             ),
@@ -84,11 +89,26 @@ const RootLayout = () => {
         />
         <Tabs.Screen
           name="(Orders)/DetailOrder"
-          options={{ href: null, unmountOnBlur: true }}
+          options={{
+            href: null,
+            title: "Detail Order",
+            headerTitleAlign: "center",
+            headerStyle: styles.headerStyle,
+            unmountOnBlur: true,
+            headerShown: true,
+
+            headerLeft: () => (
+              <TouchableOpacity onPress={() => router.replace("./ListOrders")} className="ml-5">
+                <Ionicons name="chevron-back" size={24} color="black" />
+              </TouchableOpacity>
+            ),
+          }}
         />
         <Tabs.Screen
           name="Chat"
           options={{
+            headerTitleAlign: "center",
+            headerStyle: styles.headerStyle,
             tabBarIcon: ({ color }) => (
               <Entypo name="chat" size={32} color={color} />
             ),
@@ -163,10 +183,6 @@ const styles = StyleSheet.create({
   headerStyle: {
     height: 100,
     shadowColor: "grey",
-    // shadowOffset: {
-    //   width: 0,
-    //   height: 0,
-    // }
   },
 });
 

@@ -48,7 +48,7 @@ const DetailOrder = () => {
   };
 
   return (
-    <View>
+    <View className="bg-white h-full">
       <Text style={{ color : timeStampFinish === "" ? "orange" : "green" }}>{timeStampFinish === "" ? "Ongoing" : "Complete"}</Text>
       <SafeAreaView>
         <ScrollView>

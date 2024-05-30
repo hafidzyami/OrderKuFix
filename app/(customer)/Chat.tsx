@@ -67,7 +67,7 @@ const chat = () => {
   }, []);
 
   return (
-    <View>
+    <View className="bg-white h-full">
       {users ? (
         <SafeAreaView>
           <ScrollView
