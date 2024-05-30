@@ -1,9 +1,9 @@
 import { Tabs, router } from "expo-router";
 import { getAuth } from "firebase/auth";
 import React, { useEffect, useState } from "react";
-import { View, Image } from "react-native";
+import { View, Image, TouchableOpacity, StyleSheet } from "react-native";
 import { Entypo } from "@expo/vector-icons";
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 
 import "react-native-reanimated";
@@ -86,13 +86,37 @@ const RootLayout = () => {
       />
       <Tabs.Screen
         name="(Menu)/EditMenu"
-        options={{ href: null, unmountOnBlur: true }}
+        options={{
+          href: null,
+          unmountOnBlur: true,
+          title: "Edit Menu",
+          headerStyle: styles.headerStyle,
+          headerLeft: () => (
+            <View className="ml-3">
+              <TouchableOpacity>
+                <Ionicons name="chevron-back" size={24} color="black" />
+              </TouchableOpacity>
+            </View>
+          ),
+        }}
       />
       <Tabs.Screen name="TotalPendapatan" options={{ href: null }} />
       <Tabs.Screen name="(Profile)/EditProfile" options={{ href: null }} />
       <Tabs.Screen
         name="(Menu)/UpdateMenu"
-        options={{ href: null, unmountOnBlur: true }}
+        options={{
+          href: null,
+          unmountOnBlur: true,
+          title: "Update Menu",
+          headerStyle: styles.headerStyle,
+          headerLeft: () => (
+            <View className="ml-3">
+              <TouchableOpacity>
+                <Ionicons name="chevron-back" size={24} color="black" />
+              </TouchableOpacity>
+            </View>
+          ),
+        }}
       />
       <Tabs.Screen
         name="(Orders)/DetailOrder"
@@ -105,5 +129,16 @@ const RootLayout = () => {
     </Tabs>
   );
 };
+
+const styles = StyleSheet.create({
+  headerStyle: {
+    height: 100,
+    shadowColor: "grey",
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 0,
+    // }
+  },
+});
 
 export default RootLayout;

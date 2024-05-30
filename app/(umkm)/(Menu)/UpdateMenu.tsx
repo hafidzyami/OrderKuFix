@@ -22,6 +22,7 @@ import {
 } from "firebase/firestore";
 import formatImageURL from "@/functions/formatImageURL";
 import convertToNumber from "@/functions/convertToNumber";
+import { Entypo } from "@expo/vector-icons";
 
 interface MenuItem {
   idMenu: any;
@@ -117,7 +118,7 @@ const EditAMenu = () => {
       await updateDoc(
         doc(getFirestore(), "menu", getAuth().currentUser!!.uid),
         {
-          menus: arrayUnion(menus)
+          menus: arrayUnion(menus),
         }
       );
     } catch (error) {
@@ -131,14 +132,21 @@ const EditAMenu = () => {
     <View style={styles.container}>
       <Button title="Pick an image from camera roll" onPress={pickImage} />
       {loadingImage && <ActivityIndicator size="large" color="#F8E800" />}
-      {image !== "" ? <Image
-        style={styles.image}
-        source={{
-          uri: image,
-        }}
-        onLoadStart={() => setLoadingImage(true)}
-        onLoadEnd={() => setLoadingImage(false)}
-      /> : null}
+      {image !== "" ? (
+        <View style={styles.imagecontainer}>
+          <Image
+            style={styles.image}
+            source={{
+              uri: image,
+            }}
+            onLoadStart={() => setLoadingImage(true)}
+            onLoadEnd={() => setLoadingImage(false)}
+          />
+          <View style={styles.iconWrapper}>
+            <Entypo name="camera" size={24} color="white" />
+          </View>
+        </View>
+      ) : null}
       {loadingUpload && <ActivityIndicator size="large" color="#F8E800" />}
       <TextInput
         placeholder="Food Name"
@@ -174,9 +182,23 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   image: {
-    width: 150,
-    height: 150,
+    width: "100%",
+    height: "100%",
     marginBottom: 50,
+    borderRadius: 10,
+  },
+  iconWrapper: {
+    position: "absolute",
+    bottom: 10, // Adjust the distance from the bottom as needed
+    right: 10, // Adjust the distance from the right as needed
+    backgroundColor: "rgba(0, 0, 0, 0.5)", // Semi-transparent black background
+    borderRadius: 12, // Optional: add border radius to the wrapper
+    padding: 5, // Add padding to ensure the icon is not touching the edges
+  },
+  imagecontainer: {
+    position: "relative",
+    width: 200, // Set the width of the container as per your image size
+    height: 200, // Set the height of the container as per your image size
   },
 });
 

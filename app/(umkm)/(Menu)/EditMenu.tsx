@@ -48,9 +48,7 @@ const EditMenu = () => {
 
   const renderMenuCard = ({ item }: { item: any }) => (
     <TouchableOpacity
-      onPress={() =>
-        router.push({ pathname: `../EditMenu`, params: item })
-      }
+      onPress={() => router.push({ pathname: `./UpdateMenu`, params: item })}
     >
       <View style={styles.card}>
         {loadingImage && <ActivityIndicator size="large" color="#F8E800" />}
@@ -113,7 +111,6 @@ const styles = StyleSheet.create({
   },
   card: {
     margin: 10,
-    alignItems: "center",
     shadowColor: "#171717",
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.5,
