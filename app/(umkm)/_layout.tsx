@@ -50,7 +50,7 @@ const RootLayout = () => {
       screenOptions={{
         tabBarActiveTintColor: "black",
         tabBarStyle: {
-          height: pathname === "/ChatRoom" ? 0 : 75,
+          height: pathname === "/ChatRoom" || pathname === "/underMaintenance"? 0 : 75,
         },
         tabBarShowLabel: false,
         tabBarHideOnKeyboard: true,
