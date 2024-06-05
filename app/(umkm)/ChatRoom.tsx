@@ -98,11 +98,10 @@ import { getRoomId } from "@/utils/getRoomId";
     };
     return (
       <CustomKeyboardView inChat={true}>
-        <View className="flex-1 bg-white">
+        <View className="flex-1 bg-mainYellow">
           <StatusBar style="dark" />
           <ChatRoomHeader user={params} router={router} />
-          <View className="h-3 border-b border-neutral-200"></View>
-          <View className="flex-1 justify-between bg-neutral-100 overflow-visible">
+          <View className="flex-1 justify-between bg-mainYellow overflow-visible">
             <View className="flex-1">
               <MessageList messages={messages} scrollViewRef={scrollViewRef} />
             </View>

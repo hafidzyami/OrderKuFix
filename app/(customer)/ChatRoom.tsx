@@ -101,15 +101,15 @@ const chatRoom = () => {
   return (
     <CustomKeyboardView inChat={true}>
       <View className="flex-1 bg-mainYellow h-full">
-        <StatusBar style="dark" />
         <ChatRoomHeader user={params} router={router} />
+
         {messages.length === 0 ? (
           <View className="flex-1 justify-center items-center">
             <ActivityIndicator size="large" color="#F8E800" />
           </View>
         ) : null}
         <View className="flex-1 justify-between overflow-visible">
-          <View className="flex-1">
+          <View className="flex-1 mx-2">
             <MessageList messages={messages} scrollViewRef={scrollViewRef} />
           </View>
           <View style={{ marginBottom: 20 }} className="pt-2">

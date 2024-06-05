@@ -12,7 +12,7 @@ const ChatList = (users: any) => {
           keyExtractor={(item) => item.id}
           nestedScrollEnabled={true}
           scrollEnabled={false}
-          className="mx-4"
+          className="flex-1 mx-4 "
         />
   );
 };

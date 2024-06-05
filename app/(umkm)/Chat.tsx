@@ -68,8 +68,7 @@ const chat = () => {
   }, []);
 
   return (
-    <View className="bg-white h-full p-4">
-      <Text className="font-bold text-lg mb-3 mt-1 ml-4"> Daftar Customer : </Text>
+    <View className="bg-white h-full">
       {users ? (
         <SafeAreaView style={{ marginTop : -30 }} >
           <ScrollView
@@ -82,7 +81,7 @@ const chat = () => {
         </SafeAreaView>
       ) : (
         <View>
-          <ActivityIndicator size={64} className="flex justify-center items-center" />
+          <ActivityIndicator size={64} className="flex justify-center items-center h-full" />
         </View>
       )}
     </View>

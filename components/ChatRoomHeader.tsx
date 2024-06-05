@@ -10,19 +10,27 @@ const ChatRoomHeader = ({ user, router }: any) => {
       options={{
         title: "",
         headerShadowVisible: false,
+        
         headerLeft: () => (
           <View className="flex flex-row items-center">
-            <TouchableOpacity onPress={() => router.replace("./Chat")} className="mx-3">
+            <TouchableOpacity
+              onPress={() => router.replace("./Chat")}
+              className="mx-3"
+            >
               <Ionicons name="chevron-back" size={24} color="black" />
             </TouchableOpacity>
 
-            <Image
-              source={{ uri: formatProfileURL(user.photoURL) }}
-              height={45}
-              width={45}
-              borderRadius={50}
-            />
-            <Text className="ml-2 font-bold">{user.nama}</Text>
+            <View className="flex flex-row justify-center items-center">
+              <Image
+                source={{ uri: formatProfileURL(user.photoURL) }}
+                height={45}
+                width={45}
+                borderRadius={50}
+              />
+              <Text className="ml-2 font-bold">{user.nama}</Text>
+            </View>
+
+            
           </View>
         ),
       }}

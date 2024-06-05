@@ -21,7 +21,7 @@ const RootLayout = () => {
       }
     });
     const elapsedTime = Date.now() - startTime;
-    const delayTime = 2000; // Set the delay time in milliseconds
+    const delayTime = 1000; // Set the delay time in milliseconds
     const remainingTime = delayTime - elapsedTime;
     if (remainingTime > 0) {
       setTimeout(() => {
@@ -91,6 +91,8 @@ const RootLayout = () => {
         name="Chat"
         options={{
           unmountOnBlur: true,
+          headerTitleAlign: "center",
+          headerStyle: styles.headerStyle,
           tabBarIcon: ({ color }) => (
             <Entypo name="chat" size={32} color={color} />
           ),

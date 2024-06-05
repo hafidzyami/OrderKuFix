@@ -24,7 +24,7 @@ const chat = () => {
 
   const onRefresh = () => {
     setRefreshing(true);
-    fetchDaftarChat()
+    fetchDaftarChat();
     setRefreshing(false);
   };
 
@@ -68,9 +68,8 @@ const chat = () => {
 
   return (
     <View className=" bg-white h-full">
-      <Text className="font-bold text-lg mb-4 mt-5 ml-4"> Daftar UMKM : </Text>
       {users ? (
-        <SafeAreaView style={{ marginTop : -30 }}>
+        <SafeAreaView style={{ marginTop: -30 }}>
           <ScrollView
             refreshControl={
               <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
@@ -81,7 +80,10 @@ const chat = () => {
         </SafeAreaView>
       ) : (
         <View>
-          <ActivityIndicator size={64} className="flex justify-center items-center" />
+          <ActivityIndicator
+            size={64}
+            className="flex justify-center items-center h-full"
+          />
         </View>
       )}
     </View>
