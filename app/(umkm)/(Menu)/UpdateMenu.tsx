@@ -207,7 +207,7 @@ const EditAMenu = () => {
               onPress={saveUpdates}
               className="bg-mainYellow py-4 flex items-center rounded-xl shadow-sm shadow-black mt-10 mb-6"
             >
-              <Text className="text-textButton font-bold">Save Updates</Text>
+              <Text className="text-lg font-bold">Save Updates</Text>
             </TouchableOpacity>
           </View>
         </KeyboardAvoidingView>

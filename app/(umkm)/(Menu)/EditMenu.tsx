@@ -101,7 +101,7 @@ const EditMenu = () => {
               scrollEnabled={false}
             />
           </ScrollView>
-          <View style={{ marginBottom: 10, marginTop: 10 }} className="mx-4">
+          <View style={{ marginBottom: 20, marginTop: 10 }} className="mx-4">
             <ButtonCustom
               onPress={() => router.replace("/AddMenu")}
               title="Add New Menu"

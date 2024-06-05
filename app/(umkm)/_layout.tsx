@@ -56,7 +56,9 @@ const RootLayout = () => {
             pathname === "/DetailOrder" ||
             pathname === "/UpdateMenu" ||
             pathname === "/EditProfile" ||
-            pathname === "/TotalPendapatan"
+            pathname === "/TotalPendapatan" ||
+            pathname === "/AddMenu" ||
+            pathname === "/EditMenu"
               ? 0
               : 75,
         },
@@ -117,10 +119,11 @@ const RootLayout = () => {
           href: null,
           unmountOnBlur: true,
           title: "Add Menu",
+          headerTitleAlign: "center",
           headerStyle: styles.headerStyle,
           headerLeft: () => (
             <View className="ml-3">
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => router.replace("./EditMenu")}>
                 <Ionicons name="chevron-back" size={24} color="black" />
               </TouchableOpacity>
             </View>

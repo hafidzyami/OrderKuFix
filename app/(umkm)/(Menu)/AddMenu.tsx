@@ -99,7 +99,7 @@ const AddMenu = () => {
     }
   };
   return (
-    <ScrollView>
+    <ScrollView className="h-full bg-white">
       <KeyboardAvoidingView>
         <View style={styles.container}>
           <TouchableOpacity style={styles.imagecontainer} onPress={pickImage}>
@@ -118,7 +118,7 @@ const AddMenu = () => {
             ) : (
               <View
                 style={styles.image}
-                className="border-2 justify-center items-center"
+                className="border-[1px] justify-center items-center bg-gray-200"
               >
                 <Text className="text-base">Add Image</Text>
                 <View style={styles.iconWrapper}>
@@ -170,9 +170,9 @@ const AddMenu = () => {
           </View>
           <TouchableOpacity
             onPress={saveUpdates}
-            className="bg-mainYellow py-4 flex items-center rounded-xl shadow-sm shadow-black mt-10 "
+            className="bg-mainYellow py-5 mb-4 flex items-center rounded-xl shadow-sm shadow-black mt-10 "
           >
-            <Text className="text-textButton font-bold">Save Updates</Text>
+            <Text className="text-lg font-bold">Save Updates</Text>
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
@@ -193,8 +193,8 @@ const styles = StyleSheet.create({
   },
   iconWrapper: {
     position: "absolute",
-    bottom: 30, // Adjust the distance from the bottom as needed
-    right: 5, // Adjust the distance from the right as needed
+    bottom: 10, // Adjust the distance from the bottom as needed
+    right: 8, // Adjust the distance from the right as needed
     backgroundColor: "rgba(0, 0, 0, 0.5)", // Semi-transparent black background
     borderRadius: 12, // Optional: add border radius to the wrapper
     padding: 5, // Add padding to ensure the icon is not touching the edges

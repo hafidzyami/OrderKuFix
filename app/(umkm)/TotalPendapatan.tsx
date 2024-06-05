@@ -21,7 +21,7 @@ const TotalPendapatan = () => {
 
   const calculateTotal = () => {
     let total = 0
-    pendapatan.map((id : any) => {total += id.totalPrice})
+    {pendapatan ? pendapatan.map((id : any) => {total += id.totalPrice}) : (total = 0)}
     return total
   }
 
@@ -104,8 +104,8 @@ const TotalPendapatan = () => {
             />
           </ScrollView>
           <View className="flex border-gray-400 border-t-[1px]">
-            <View className="flex flex-row rounded-lg my-5 mx-5">
-              <View className="flex flex-row ml-4 justify-between w-[95%]">
+            <View className="flex flex-row rounded-lg my-5">
+              <View className="flex flex-row justify-between w-full px-6">
                 <View className="">
                   <Text className="text-lg font-bold">
                     Total

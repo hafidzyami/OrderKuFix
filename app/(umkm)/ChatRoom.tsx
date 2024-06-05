@@ -102,7 +102,7 @@ import { getRoomId } from "@/utils/getRoomId";
           <StatusBar style="dark" />
           <ChatRoomHeader user={params} router={router} />
           <View className="flex-1 justify-between bg-mainYellow overflow-visible">
-            <View className="flex-1">
+            <View className="flex-1 mx-2">
               <MessageList messages={messages} scrollViewRef={scrollViewRef} />
             </View>
             <View style={{ marginBottom: 20 }} className="pt-2">
